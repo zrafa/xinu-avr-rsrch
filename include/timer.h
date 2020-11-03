@@ -1,7 +1,7 @@
 /*General purpose timer */
 
 extern	unsigned long	clktime;   /* current time in secs since boot	*/
-extern  unsigned long  count1000;  /* ms since last clock tick          */
+extern  volatile unsigned long  count100 ;  /* ms since last clock tick          */
 
 extern	qid16	sleepq;		/* queue for sleeping processes		*/
 extern	int32	slnonempty;	/* nonzero if sleepq is nonempty	*/

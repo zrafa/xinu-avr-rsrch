@@ -24,20 +24,20 @@ ISR(TIMER1_COMPA_vect)
 
 	/* Every ms */
 
-	/* Increment 1000ms counter */
+	/* Increment 100ms counter */
 
-	count1000++;
+	count100++;
 
 	/* After 1 sec, increment clktime */
 
-	if(count1000 >= 1000) {	/* previous was: if(count1000 >= 1000) */
+	if(count100 >= 100) {	/* previous was: if(count100 >= 100) */
 		clktime++;
-		count1000 = 0;
+		count100 = 0;
 	}
 
 	/* check if sleep queue is empty every 100ms */
 
-	if ((count1000 % 100) == 0)	/* every 100ms */
+	if ((count100 % 100) == 0)	/* every 100ms */
 		if(!isempty(sleepq)) {
 			/* sleepq nonempty, decrement the key of */
 			/* topmost process on sleepq             */
@@ -50,7 +50,7 @@ ISR(TIMER1_COMPA_vect)
 
 	/* our MCU is slow (16Mhz), so we do resched/preemption every 300ms */
 	avr_ticks ++;
-	if (avr_ticks > 300) {		
+	if (avr_ticks > 30) {		
 //	if (avr_ticks > 10) {		
 //	if (avr_ticks > 100) {		
 		avr_ticks=0;

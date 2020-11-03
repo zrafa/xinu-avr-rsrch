@@ -83,7 +83,7 @@ extern	qid16	readylist;	/* global ID for list of ready processes*/
 
 #define	NULLSTK		64	/* stack size for null process		*/
 
-#define CLK_TIMER0   0      /* System clock Timer configuration */
+#define CLK_TIMER0   1      /* System clock Timer configuration */
    
 /* Prototypes of I/O functions used throughout the kernel */
 

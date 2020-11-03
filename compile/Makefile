@@ -142,7 +142,7 @@ flash:
 
 
 qemu:
-	$(QEMU) -M arduino-uno -bios $(XINUBIN) 
+	$(QEMU) -M arduino-uno -bios $(XINUBIN) -monitor stdio 
 monitor:
 	$(QEMU) -monitor stdio -serial stdio -M stm32-f103c8 -kernel $(XINUBIN) 
 
