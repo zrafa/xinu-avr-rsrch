@@ -21,12 +21,10 @@
 #include <device.h>
 #include <interrupt.h>
 #include <file.h>
-#include <spi.h>
 #include <name.h>
 #include <shell.h>
 #include <date.h>
 #include <prototypes.h>
-#include <delay.h>
 #include <stdio.h>
 #include <string.h>
 #include <syscall.h>

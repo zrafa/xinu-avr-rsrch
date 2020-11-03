@@ -131,24 +131,6 @@ extern	syscall	kill(pid32);
 /* in file lexan.c */
 extern	int32	lexan(char *, int32, char *, int32 *, int32 [], int32 []);
 
-/* in file lpgetc.c */
-extern	devcall	lpgetc(struct dentry *);
-
-/* in file lpinit.c */
-extern	devcall	lpinit(struct dentry *);
-
-/* in file lpopen.c */
-extern	devcall	lpopen(struct dentry *, char *, char *);
-
-/* in file lpputc.c */
-extern	devcall	lpputc(struct dentry *, char);
-
-/* in file lpread.c */
-extern	devcall	lpread(struct dentry *, char *, int32);
-
-/* in file lpwrite.c */
-extern	devcall	lpwrite(struct dentry *, char *, int32);
-
 /* in file mark.c */
 extern	void	_mkinit(void);
 
@@ -279,22 +261,6 @@ extern	syscall	signaln(sid32, int32);
 // extern	syscall	sleepms(int32);
 extern	syscall	sleep(int32);
 
-/* in file spicontrol.c */
-extern	devcall	spicontrol(struct dentry *, int32, int32, int32);
-
-/* in spiinit.c */
-extern	int32	spiinit(struct dentry *);
-
-/* in file start.S */
-extern	int32	inb(int32);
-extern	int32	inw(int32);
-extern	int32	inl(int32);
-extern	int32	outb(int32, int32);
-extern	int32	outw(int32, int32);
-extern	int32	outl(int32, int32);
-extern	int32	outsw(int32, int32, int32);
-extern	int32	insw(int32, int32 ,int32);
-
 /* in file suspend.c */
 extern	syscall	suspend(pid32);
 
@@ -374,18 +340,6 @@ extern	devcall	eeprom_read(const __flash struct dentry *, char *, int32);
 /* in file ramwrite.c */
 extern	devcall	eeprom_write(const __flash struct dentry *, char *, int32);
 
-
-/* in file suicide.c */
-
-/* in file lib/syscall. c*/
-
-/* in file spiinit.c */
-// extern	devcall	spiinit(struct dentry *);
-
-/* in file spiputc.c */
-extern	devcall	spiputc(struct dentry *, char);
-
-
 /* avr specific */
 //extern void avr_printf(char mess[]);
 //extern void avr_kprintf(const unsigned char *msg);
@@ -399,11 +353,3 @@ typedef unsigned int size_t;
 #define hibyte(x) (unsigned char)(((int)(x)>>8)&0xff)
 #define lobyte(x) (unsigned char)(((int)(x))&0xff)
 
-
-/* NETWORK BYTE ORDER CONVERSION NOT NEEDED ON A BIG-ENDIAN COMPUTER */
-#define	htons(x)   ( ( 0xff & ((x)>>8) ) | ( (0xff & (x)) << 8 ) )
-#define	htonl(x)   (  (((x)>>24) & 0x000000ff) | (((x)>> 8) & 0x0000ff00) | \
-		      (((x)<< 8) & 0x00ff0000) | (((x)<<24) & 0xff000000) )
-#define	ntohs(x)   ( ( 0xff & ((x)>>8) ) | ( (0xff & (x)) << 8 ) )
-#define	ntohl(x)   (  (((x)>>24) & 0x000000ff) | (((x)>> 8) & 0x0000ff00) | \
-		      (((x)<< 8) & 0x00ff0000) | (((x)<<24) & 0xff000000) )
