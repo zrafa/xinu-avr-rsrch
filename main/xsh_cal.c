@@ -88,6 +88,8 @@ xlong:
 
 badarg:
 	printf("Bad argument\n");
+
+	return 0;
 }
 
 number(str)

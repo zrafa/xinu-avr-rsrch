@@ -12,7 +12,6 @@ const __flash char free_msg1[] = "\n\t\ttotal\tused\tfree\nSRAM Mem\t";
  */
 shellcmd xsh_free(int nargs, char *args[])
 {
-	int32	i;			/* walks through args array	*/
 	long free_mem;
 	struct memblk *block;
 

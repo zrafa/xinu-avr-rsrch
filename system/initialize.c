@@ -164,8 +164,3 @@ int32	stop(char *s)
 		/* Empty */;
 }
 
-int32	delay(int n)
-{
-	DELAY(n);
-	return OK;
-}

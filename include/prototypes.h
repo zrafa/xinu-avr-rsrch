@@ -74,12 +74,6 @@ extern	syscall	getprio(pid32);
 /* in file getstk.c */
 extern	char	*getstk(uint32);
 
-/* in file getticks.c */
-extern	uint32	getticks(void);
-
-/* in file gettime.c */
-extern	status	gettime(uint32 *);
-
 /* in file getutime.c */
 extern	status	getutime(uint32 *);
 

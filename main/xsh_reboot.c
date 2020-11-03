@@ -13,4 +13,6 @@ shellcmd xsh_reboot(int nargs, char *args[])
 	void(* reset_func) (void) = 0;//declare reset function at address 0
 	cli(); // disable interrupts
 	reset_func();
+
+	return 0;
 }
