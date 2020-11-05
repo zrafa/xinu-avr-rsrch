@@ -17,8 +17,6 @@
 #include <timer.h>
 #include <uart.h>	/* avr UART peripheral */
 #include <tty.h>
-#include <gpio.h>	/* avr GPIO peripherals */
-#include <gpioselect.h>
 #include <device.h>
 #include <interrupt.h>
 #include <file.h>
