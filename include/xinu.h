@@ -5,6 +5,7 @@
 
 #include <kernel.h>
 #include <conf.h>
+#include <clock.h>
 #include <process.h>
 #include <queue.h>
 #include <resched.h>

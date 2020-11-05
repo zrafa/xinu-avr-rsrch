@@ -7,10 +7,10 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
-uint32	clktime;            /* Seconds since boot			*/
-volatile unsigned long  count100 ;   /* ms since last clock tick     */
-qid16	sleepq;             /* Queue of sleeping processes  */
-unsigned long preempt;      /* Preemption counter			*/
+uint32      clktime;            /* Seconds since boot			*/
+volatile    uint32 count100 ;   /* ms since last clock tick     */
+qid16       sleepq;             /* Queue of sleeping processes  */
+uint32      preempt;            /* Preemption counter			*/
 
 /*------------------------------------------------------------------------
  * clkinit  -  Initialize the clock and sleep queue at startup
