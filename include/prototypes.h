@@ -36,15 +36,6 @@ extern	pid32	create(int (*procaddr)(), int, int, char *, int, ...);
 /* in file ctxsw.S */
 extern	void	ctxsw(void *, void *);
 
-/* in file evec.c */
-extern	int32	initintc(void);
-extern	int32	initevec(void);
-extern	int32	set_evec(uint32, uint32);
-extern	void	trap(int32);
-
-/* in file exception.c */
-extern  void exception(int32, int32*);
-
 /* in file freebuf.c */
 extern	syscall	freebuf(char *);
 
@@ -149,9 +140,6 @@ extern	void	panic(char *);
 
 /* in file platinit.c */
 extern	void	platinit(void);
-
-/* in file ptclear.c */
-extern	void	_ptclear(struct ptentry *, uint16, int32 (*)(int32));
 
 /* in file ptcount.c */
 extern	int32	ptcount(int32);

@@ -27,9 +27,6 @@ void platinit(void)
 	/* avr uart init */
     serial_init();
 
-	/* Initialize the Interrupt Controller (evec.c) */
-	initintc();
-
 	/* System calls */
 	// syscall_init();
 }
