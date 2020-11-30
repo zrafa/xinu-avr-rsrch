@@ -44,7 +44,7 @@ void clkinit(void)
     kprintf("Using Timer1\n");
 	TCCR1B |= (1<<CS11) | (1<<CS10);   //clock select is divided by 64.
     TCCR1B |= (1<<WGM12);              //sets mode to CTC
-	OCR1A = 0x9BA;                     //sets TOP to 124 so the timer will overflow every 1 ms.    
+	OCR1A = 0x9BA;                     //sets TOP to 124 so the timer will overflow every 10 ms.    
 	TIMSK1 |= (1<<OCIE1A);             //Output Compare Match A Interrupt Enable
 #endif // CLK_TIMER0
 
