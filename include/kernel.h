@@ -4,13 +4,13 @@
 
 /* General type declarations used throughout the kernel */
 
-typedef	unsigned char	byte;
-typedef	unsigned char	uint8;
-typedef	long		int32;
-typedef	int		int16;
-typedef	unsigned long	uint32;
-typedef	unsigned int	uint16;
-typedef	unsigned long long uint64;
+typedef	unsigned char       byte;
+typedef	unsigned char       uint8;
+typedef	long                int32;
+typedef	int                 int16;
+typedef	unsigned long       uint32;
+typedef	unsigned int        uint16;
+typedef	unsigned long long  uint64;
 
 /* Xinu-specific types */
 
