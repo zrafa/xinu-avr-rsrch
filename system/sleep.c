@@ -12,9 +12,26 @@ syscall	sleep(
 	  int32	delay		/* Time to delay in seconds	*/
 	)
 {
+	if ( (delay < 0) || (delay > MAXSECONDS) ) {
+		return SYSERR;
+	}
+	sleepms(1000*delay);
+	return OK;
+}
+
+/*------------------------------------------------------------------------
+ *  sleepms  -  Delay the calling process n x 1000 milliseconds
+ *                 for example: 1 second = sleepms(1000)
+ *  avr atmega328p specific
+ *------------------------------------------------------------------------
+ */
+syscall	sleepms(
+	  int32	delay			/* Time to delay in msec.	*/
+	)
+{
 	intmask	mask;			/* Saved interrupt mask		*/
 
-	if ( (delay < 0) || (delay > MAXSECONDS) ) {
+	if (delay < 0) {
 		return SYSERR;
 	}
 
@@ -34,7 +51,5 @@ syscall	sleep(
 	proctab[currpid].prstate = PR_SLEEP;
 	resched();
 	restore(mask);
-
 	return OK;
 }
-
