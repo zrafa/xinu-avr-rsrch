@@ -21,9 +21,6 @@ ISR(TIMER0_COMPA_vect)
 ISR(TIMER1_COMPA_vect)
 #endif // CLK_TIMER0
 {
-
-	/* Every ms */
-
 	/* Increment 100ms counter */
 
 	count100++;
@@ -37,8 +34,8 @@ ISR(TIMER1_COMPA_vect)
 
 	/* check if sleep queue is empty every 100ms */
 
-	if ((count100 % 100) == 0)	/* every 100ms */
-		if(!isempty(sleepq)) {
+    if(!isempty(sleepq)) {
+
 			/* sleepq nonempty, decrement the key of */
 			/* topmost process on sleepq             */
 
@@ -46,21 +43,13 @@ ISR(TIMER1_COMPA_vect)
 
 				wakeup();
 			}
-		}
-
-	/* our MCU is slow (16Mhz), so we do resched/preemption every 300ms */
-	avr_ticks ++;
-	if (avr_ticks > 30) {		
-//	if (avr_ticks > 10) {		
-//	if (avr_ticks > 100) {		
-		avr_ticks=0;
-
-		/* Decrement the preemption counter */
-		/* Reschedule if necessary          */
-		if((--preempt) == 0) {
-			preempt = QUANTUM;
-			resched();
-		}
 	}
+
+    /* Decrement the preemption counter */
+    /* Reschedule if necessary          */
+    if((--preempt) == 0) {
+        preempt = QUANTUM;
+        resched();
+    }
 }
 
