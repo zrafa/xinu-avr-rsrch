@@ -80,7 +80,7 @@ extern	status	insert(pid32, qid16, char);
 
 /* in file insertd.c */
 // extern	status	insertd(pid32, qid16, int32);
-extern	status	insertd(pid32, qid16, char);
+extern	status	insertd(pid32, qid16, int16);
 
 /* in file intr.S */
 extern	intmask	disable(void);
