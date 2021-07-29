@@ -18,10 +18,7 @@
 #include <uart.h>	/* avr UART peripheral */
 #include <tty.h>
 #include <device.h>
-#include <file.h>
-#include <name.h>
 #include <shell.h>
-#include <date.h>
 #include <prototypes.h>
 #include <stdio.h>
 #include <string.h>
