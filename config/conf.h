@@ -27,15 +27,13 @@ extern	const __flash struct dentry	devtab[] ; /* one entry per device */
 
 #define CONSOLE              0	/* type tty      */
 #define NULLDEV              1	/* type null     */
-#define NAMESPACE            2	/* type nam      */
 
 /* Control block sizes */
 
 #define	Nnull	1
 #define	Ntty	1
-#define	Nnam	1
 
-#define NDEVS 3
+#define NDEVS 2
 
 
 /* Configuration and Size Constants */

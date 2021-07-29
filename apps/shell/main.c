@@ -395,23 +395,6 @@ process	main(void)
 
 		/* Open files and redirect I/O if specified */
 
-		if (inname != NULL) {
-			stdinput = open(NAMESPACE,inname,"ro");
-			if (stdinput == SYSERR) {
-				// fprintf(dev, SHELL_INERRMSG, inname);
-				continue;
-			}
-		}
-		if (outname != NULL) {
-			stdoutput = open(NAMESPACE,outname,"w");
-			if (stdoutput == SYSERR) {
-				// fprintf(dev, SHELL_OUTERRMSG, outname);
-				continue;
-			} else {
-				control(stdoutput, F_CTL_TRUNC, 0, 0);
-			}
-		}
-
 		/* Spawn child thread for non-built-in commands */
 
 		strncpy_P(cname, cmdtab_cname[j], len_p);

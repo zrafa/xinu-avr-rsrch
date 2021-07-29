@@ -31,12 +31,5 @@ const __flash struct	dentry	devtab[] =
 	  (void *)ionull, (void *)ionull, (void *)ionull,
 	  (void *)ionull, (void *)ionull, (void *)ioerr,
 	  (void *)ionull, (void *)ionull, (void *)ioerr,
-	  (void *)0x0, (void *)ioerr, 0 },
-
-/* NAMESPACE is nam */
-	{ 2, 0, "NAMESPACE",
-	  (void *)naminit, (void *)namopen, (void *)ioerr,
-	  (void *)ioerr, (void *)ioerr, (void *)ioerr,
-	  (void *)ioerr, (void *)ioerr, (void *)ioerr,
 	  (void *)0x0, (void *)ioerr, 0 }
 };

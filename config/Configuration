@@ -67,12 +67,14 @@ FIN DE RAFA */
 */
 
 /* type of namespace device */
+/* ROLO
 nam:
 	on top
 		-i naminit 	-o namopen 	-c ioerr
 		-r ioerr 	-g ioerr 	-p ioerr
 		-w ioerr 	-s ioerr 	-n ioerr
 		-intr ioerr
+FIN DE ROLO */
 
 /* RAFA
 spi:
@@ -104,7 +106,7 @@ FIN DE RAFA */
    NULLDEV is null on nothing
 
    /* Define a namespace device */
-   NAMESPACE is nam on top
+/* ROLO   NAMESPACE is nam on top */
 
    /* Define a SPI device */
 /* RAFA   SPI1	is spi on standard_spi */
