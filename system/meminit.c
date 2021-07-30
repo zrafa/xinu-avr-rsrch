@@ -16,7 +16,7 @@ extern int __bss_end;
 /* avr specific */
 #define GET_FAR_ADDRESS(var)                          \
 ({                                                    \
-    uint32_t tmp;                                     \
+    uint32 tmp;                                     \
                                                       \
     __asm__ __volatile__(                             \
                                                       \

@@ -121,7 +121,6 @@ export
 
 xinu:	Makefile rebuild $(BLDDIRS) $(DEFSFILE) $(DEPSFILE) $(CONFH) $(CONFC) $(LD_LIST)
 	@echo;echo 'Loading object files to produce xinu'
-	# RAFA original : @$(LD) $(LDFLAGS) $(LD_LIST) -o $(XINU) -L/usr/lib/gcc/arm-none-eabi/6.3.1/ --print-memory-usage
 	@$(LD) $(LDFLAGS) $(LD_LIST) -o $(XINU) 
 	@echo "Creating Binary..."
 	@$(OBJCOPY) -O binary $(XINU) $(XINUBIN)
