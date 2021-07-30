@@ -18,11 +18,13 @@
 /* Type Declarations for both real- and pseudo- device types */
 
 /* type of a null device */
+/* ROLO
 null:
 	on nothing
 		-i ionull	-o ionull	-c ionull
 		-r ionull	-g ionull	-p ionull
 		-w ionull	-s ioerr
+FIN DE ROLO */
 
 /* type of a gpio device */
 /* RAFA
@@ -35,12 +37,14 @@ gpio:
 FIN DE RAFA */
 
 /* type of a tty device */
+/* ROLO
 tty:
 	on uart
 		-i ttyinit      -o ionull       -c ionull
 		-r ttyread      -g ttygetc      -p ttyputc
 		-w ttywrite     -s ioerr        -n ttycontrol
 		-intr ttyhandler
+FIN DE ROLO */
 	/* RAFA 
 	on uart
 		-i ionull      -o ionull       -c ionull
@@ -91,7 +95,7 @@ FIN DE RAFA */
 /*   will be present in the system					*/
 
    /* Define the console device to be a tty and specify CSR*/
-   CONSOLE is tty  on uart  csr 0x40013800 -irq 53
+/* ROLO   CONSOLE is tty  on uart  csr 0x40013800 -irq 53 /*
    
    /* Define the console device to be a tty and specify CSR*/
 /* RAFA   GPIO0 is gpio  on standard_gpio  csr 0x40010800 -irq 99 */
@@ -103,7 +107,7 @@ FIN DE RAFA */
 /* RAFA   GPIO3 is gpio  on standard_gpio  csr 0x40011400 -irq 99 */
 
    /* Define a null device */
-   NULLDEV is null on nothing
+/* ROLO   NULLDEV is null on nothing */
 
    /* Define a namespace device */
 /* ROLO   NAMESPACE is nam on top */

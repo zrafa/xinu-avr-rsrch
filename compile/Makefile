@@ -40,12 +40,11 @@ REBUILDFLAGS	=	-s $(TOPDIR)/system  debug.c 	\
 			#-s $(TOPDIR)/device/gpio			\
 			#-s $(TOPDIR)/device/spi			\
 			#-s $(TOPDIR)/device/avr_eeprom			\
-			-s $(TOPDIR)/device/tty			\
+			#-s $(TOPDIR)/device/tty			\
 			-s $(TOPDIR)/shell  'xsh_rdstest*'
 			#
 REBUILDFLAGS	=	-s $(TOPDIR)/system   	\
 			-s $(TOPDIR)/lib			\
-			-s $(TOPDIR)/device/tty			\
 			-s $(TOPDIR)/main  
 
 INCLUDE		=	-I$(TOPDIR)/include

@@ -1,15 +1,8 @@
 /* initialize.c - nulluser, sysinit */
 
-/* avr specific */
-
 /* Handle system initialization and become the null process */
 
 #include <xinu.h>
-#include <string.h>
-
-/* avr specific */
-#include <avr_serial.h>
-
 
 /* Function prototypes */
 
@@ -28,9 +21,6 @@ struct	memblk	memlist;	/* List of free memory blocks		*/
 int32	prcount;		/* Total number of live processes	*/
 pid32	currpid;		/* ID of currently executing process	*/
 
-/* Control sequence to reset the console colors and cusor positiion	*/
-
-#define	CONSOLE_RESET	" \033[0m\033[2J\033[;H"
 
 /*------------------------------------------------------------------------
  * nulluser - initialize the system and become the null process
@@ -62,7 +52,6 @@ void	nulluser()
 						memptr = memptr->mnext) {
 		free_mem += memptr->mlength;
 	}
-	kprintf("\nFreeMEM:%d (bytes)\n\n", free_mem);
 
 	/* Initialize the Null process entry */	
 
@@ -99,9 +88,6 @@ static	void	sysinit()
 	/* Platform Specific Initialization */
 
 	platinit();
-
-	kprintf(CONSOLE_RESET);
-	avr_kprintf(sysinit_m0);
 
 	/* Initialize free memory list */
 
@@ -146,10 +132,6 @@ static	void	sysinit()
 
 	readylist = newqueue();
 	
-	for (i = 0; i < NDEVS; i++) {
-		init(i);
-	}
-
 	/* Initialize the real time clock */
 
 	clkinit();
@@ -159,7 +141,6 @@ static	void	sysinit()
 
 int32	stop(char *s)
 {
-	avr_kprintf(m12);
 	while(1)
 		/* Empty */;
 }

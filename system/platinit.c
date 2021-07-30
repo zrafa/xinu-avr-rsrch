@@ -1,13 +1,6 @@
 /* platinit.c - platinit */
 
-/* avr specific */
-
-
 #include <xinu.h>
-
-/* avr specific */
-#include <avr/interrupt.h>
-#include <avr_serial.h>
 
 
 /*------------------------------------------------------------------------
@@ -17,17 +10,5 @@
 
 void platinit(void)
 {
-
-	/* avr specific */
-	cli();	/* AVR disable interrups */
-
-	blink_avr();
-	blink_avr();
-
-	/* avr uart init */
-    serial_init();
-
-	/* System calls */
-	// syscall_init();
 }
 

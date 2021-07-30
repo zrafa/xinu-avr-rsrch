@@ -1,8 +1,5 @@
 /* xinu.h - include all system header files */
 
-/* avr specific */
-#include <avr_messages.h>
-
 #include <kernel.h>
 #include <conf.h>
 #include <clock.h>
@@ -14,12 +11,5 @@
 #include <bufpool.h>
 #include <mark.h>
 #include <ports.h>
-#include <timer.h>
-#include <uart.h>	/* avr UART peripheral */
-#include <tty.h>
-#include <device.h>
-#include <shell.h>
 #include <prototypes.h>
-#include <stdio.h>
-#include <string.h>
-#include <syscall.h>
+
