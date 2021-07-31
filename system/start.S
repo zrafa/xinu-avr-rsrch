@@ -4,6 +4,9 @@
  */
 #include <avr/io.h>
 
+/* Constants */
+#define RAMEND          0x8FF     /* Last On-Chip SRAM Location */
+
 .weak __heap_end
 .set  __heap_end, 0
 
@@ -43,4 +46,22 @@ __vectors:
     vector __vector_25
 
 .section .init8
+    ldi     r17, lo8(__bss_end+1)
+    sts     minheap, r17
+    ldi     r17, hi8(__bss_end+1)
+    sts     minheap+1, r17
+
+    ldi     r17, lo8(RAMEND)
+    sts     maxheap, r17
+    ldi     r17, hi8(RAMEND)
+    sts     maxheap+1, r17
+
     jmp nulluser
+
+    .data
+    .global minheap
+minheap:
+    .word   1
+    .global maxheap
+maxheap:
+    .word   1
