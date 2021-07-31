@@ -44,7 +44,6 @@ REBUILDFLAGS	=	-s $(TOPDIR)/system  debug.c 	\
 			-s $(TOPDIR)/shell  'xsh_rdstest*'
 			#
 REBUILDFLAGS	=	-s $(TOPDIR)/system   	\
-			-s $(TOPDIR)/lib			\
 			-s $(TOPDIR)/main  
 
 INCLUDE		=	-I$(TOPDIR)/include
