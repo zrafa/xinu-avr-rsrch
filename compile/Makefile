@@ -17,6 +17,7 @@ CC		=	${COMPILER_ROOT}gcc
 LD		=	${COMPILER_ROOT}gcc
 OBJCOPY		=	${COMPILER_ROOT}objcopy
 OBJDUMP		=	${COMPILER_ROOT}objdump
+SIZE        =   ${COMPILER_ROOT}size
 QEMU		=	/home/rolo/qemu_avr/bin/qemu-system-avr
 XINU		=	$(TOPDIR)/compile/xinu.elf
 XINUBIN		=	$(TOPDIR)/compile/xinu.bin
@@ -35,15 +36,8 @@ LDSCRIPT	=	ld.script
 MKVERS		=	$(TOPDIR)/compile/bin/mkvers
 
 
-			# RAFA -s $(TOPDIR)/device/ram			\
-REBUILDFLAGS	=	-s $(TOPDIR)/system  debug.c 	\
-			#-s $(TOPDIR)/device/gpio			\
-			#-s $(TOPDIR)/device/spi			\
-			#-s $(TOPDIR)/device/avr_eeprom			\
-			#-s $(TOPDIR)/device/tty			\
-			-s $(TOPDIR)/shell  'xsh_rdstest*'
-			#
 REBUILDFLAGS	=	-s $(TOPDIR)/system   	\
+			-s $(TOPDIR)/platforms/atmega328p			\
 			-s $(TOPDIR)/main  
 
 INCLUDE		=	-I$(TOPDIR)/include
@@ -124,6 +118,7 @@ xinu:	Makefile rebuild $(BLDDIRS) $(DEFSFILE) $(DEPSFILE) $(CONFH) $(CONFC) $(LD
 	@echo "Creating Binary..."
 	@$(OBJCOPY) -O binary $(XINU) $(XINUBIN)
 	@$(OBJCOPY) -O ihex -R .eeprom $(XINU) $(XINUHEX)
+	@$(SIZE) --mcu=atmega328p -C -x $(XINU)
 
 examine-all:
 	$(OBJDUMP) -D $(XINU) | less
