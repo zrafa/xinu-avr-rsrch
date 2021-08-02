@@ -1,25 +1,13 @@
 /* clkhandler.c - clkhandler */
 
-/* avr specific */
-
 #include <xinu.h>
-
-#include <avr/io.h>
-#include <avr/interrupt.h>
 
 /*-----------------------------------------------------------------------
  * clkhandler - high level clock interrupt handler
  *-----------------------------------------------------------------------
  */
 
-/* void clkhandler() */
-
-/* void clkhandler() */
-#if CLK_TIMER0
-ISR(TIMER0_COMPA_vect)
-#else
-ISR(TIMER1_COMPA_vect)
-#endif // CLK_TIMER0
+inline void clkhandler()
 {
 
 	/* Every ms */

@@ -12,7 +12,7 @@ extern	void	restore(intmask);
 extern	pri16	chprio(pid32, pri16);
 
 /* in file clkhandler.c */
-extern	interrupt clkhandler(void);
+extern	inline void clkhandler(void);
 
 /* in file clkinit.c */
 extern	void	clkinit(void);

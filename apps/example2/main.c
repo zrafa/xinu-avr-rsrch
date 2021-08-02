@@ -4,6 +4,7 @@
 
 #include <xinu.h>
 #include <avr/io.h>
+#include "avr_messages.h"
 
 #define USART_BAUDRATE 9600
 #define UBRR_VALUE (((F_CPU / (USART_BAUDRATE * 16UL))) - 1)
@@ -48,24 +49,16 @@ uint8 usartreceivebyte()
     return usart0->UDR;
 }
 
-process example1(int nargs, char *args[])
+void avr_kputs(const __flash char m[])
 {
-    char *buf = args[0];
-    int i = 0;
-    char ch;
+	int i;
+	for (i=0; i<strlen_P(m); i++)
+		usartsendbyte(m[i]);
+}
 
-    for (;;)
-    {
-        ch = buf[i++];
-        if (ch == '\0') {
-            usartsendbyte('\r');
-            usartsendbyte('\n');
-            break;       
-        }
-        usartsendbyte(ch);
-
-        sleep(10);
-    }
+process example2(int nargs, char *args[])
+{
+    avr_kputs(sysinit_m0);
 
 	return OK;
 }
@@ -84,7 +77,7 @@ process	main(void)
 	 * 	   second argument: "hello world"
 	 */
 
-	resume(create(example1, 128, 50, "ex_0", 1, "hello world"));
+	resume(create(example2, 128, 50, "ex_2", 0));
 
 	/* Wait for example0 to exit */
 
