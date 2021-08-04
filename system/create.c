@@ -1,17 +1,11 @@
 /* create.c - create, newpid */
 
-/* avr specific */
-
 #include <stdarg.h>
 #include <xinu.h>
 
 local	pid32 newpid();
 
 #define	roundew(x)	( (x+3)& ~0x3)
-
-/* avr specific */
-#define	MAGIC		0xaa	/* unusual value for top of stk	*/
-
 
 /*------------------------------------------------------------------------
  *  create  -  create a process to start running a procedure
@@ -43,8 +37,6 @@ pid32	create(
 		restore(mask);
 		return SYSERR;
 	}
-
-
 	
 	prcount++;
 	prptr = &proctab[pid];
@@ -61,37 +53,9 @@ pid32	create(
 	prptr->prparent = (pid32)getpid();
 	prptr->prhasmsg = FALSE;
 
-
-	/* Initialize stack as if the process was called		*/
-	*saddr-- = (char)MAGIC;		/* Bottom of stack */
-	prptr->pargs = nargs;
-	for (i=0 ; i<PNREGS ; i++)		// VER TAMANIO PARA AVR
-		prptr->pregs[i] = INITREG;	
-	prptr->paddr = (int *)procaddr;
-	prptr->pregs[SPC_L] = lobyte((unsigned) procaddr); // GUARDAR SPC_L
-	prptr->pregs[SPC_H] = hibyte((unsigned) procaddr);
-	prptr->pregs[SSREG] = INITPS;
-	// POR AHORA NO  (usado en kill.c en avr orig : prptr->pnxtkin = BADPID;
-	// POR AHORA NO prptr->pdevs[0] = prptr->pdevs[1] = BADDEV;
-	
 	int * a = (int *)(&nargs + 1);
-	for (i = 0; i < nargs; i++) {
-		prptr->parg[i] = (int) *a++;
-	}
-	prptr->parg[nargs] = 0;
-	
-	/* machine/compiler dependent pass arguments to created process */
-	prptr->pregs[24] = lobyte((unsigned)prptr->pargs);	/*r24*/
-	prptr->pregs[25] = hibyte((unsigned)prptr->pargs);
-	prptr->pregs[22] = lobyte((unsigned)&prptr->parg[0]);	/*r22*/
-	prptr->pregs[23] = hibyte((unsigned)&prptr->parg[0]);
+    initstack(saddr, procaddr, prptr, nargs, a);
 
-	*saddr-- = lobyte((unsigned)INITRET);	/* push on initial return address*/
-	*saddr-- = hibyte((unsigned)INITRET);
-	*saddr-- = lobyte((unsigned)procaddr);	/* push on procedure address	*/
-	*saddr-- = hibyte((unsigned)procaddr);
-	prptr->pregs[SSP_L] = lobyte((unsigned) saddr);
-	prptr->pregs[SSP_H] = hibyte((unsigned) saddr);
 
 	restore(mask);
 	return pid;
