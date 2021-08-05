@@ -9,7 +9,7 @@
 status	insert(
 	  pid32		pid,		/* ID of process to insert	*/
 	  qid16		q,		/* ID of queue to use		*/
-	  char		key		/* Key for the inserted process	*/
+	  int32		key		/* Key for the inserted process	*/
 	)
 {
 	qid16	curr;			/* Runs through items in a queue*/

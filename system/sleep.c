@@ -20,8 +20,7 @@ syscall	sleep(
 }
 
 /*------------------------------------------------------------------------
- *  sleepms  -  Delay the calling process n x 1000 milliseconds
- *                 for example: 1 second = sleepms(1000)
+ *  sleepms  -  Delay the calling process n milliseconds
  *------------------------------------------------------------------------
  */
 syscall	sleepms(

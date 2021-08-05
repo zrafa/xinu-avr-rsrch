@@ -53,12 +53,10 @@ extern	char	*getstk(uint32);
 extern	void	halt(void);
 
 /* in file insert.c */
-// extern	status	insert(pid32, qid16, int32);
-extern	status	insert(pid32, qid16, char);
+extern	status	insert(pid32, qid16, int32);
 
 /* in file insertd.c */
-// extern	status	insertd(pid32, qid16, int32);
-extern	status	insertd(pid32, qid16, int16);
+extern	status	insertd(pid32, qid16, int32);
 
 /* in file kill.c */
 extern	syscall	kill(pid32);
