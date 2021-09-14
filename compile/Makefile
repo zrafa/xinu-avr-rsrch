@@ -55,6 +55,7 @@ CFLAGS += -fdata-sections
 CFLAGS += -Wl,--gc-sections
 CFLAGS += -mcall-prologues 
 CFLAGS += -mrelax
+CFLAGS += -ffreestanding   # ROLO evita main warning  
 
 SFLAGS  = ${INCLUDE}
 
