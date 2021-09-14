@@ -25,7 +25,6 @@ pid32	create(
 	struct	procent	*prptr;		/* pointer to proc. table entry */
 	int i;
 	unsigned char		*saddr;		/* stack address		*/
-	va_list ap;
 
 	mask = disable();
 	if (ssize < MINSTK)
@@ -54,7 +53,7 @@ pid32	create(
 	prptr->prhasmsg = FALSE;
 
 	int * a = (int *)(&nargs + 1);
-    initstack(saddr, procaddr, prptr, nargs, a);
+    stackinit(prptr, saddr, procaddr, nargs, a);
 
 
 	restore(mask);

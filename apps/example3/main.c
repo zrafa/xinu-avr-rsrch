@@ -64,7 +64,7 @@ process example1(int nargs, char *args[])
         }
         usartsendbyte(ch);
 
-        sleep(2);
+        sleep(10);
     }
 
 	return OK;

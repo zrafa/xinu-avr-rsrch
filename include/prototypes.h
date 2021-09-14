@@ -1,27 +1,19 @@
-/* avr specific values. Original saved under orig/ folder */
+/* prototypes.h */
 
 /* in file bufinit.c */
 extern	status	bufinit(void);
-
-/* in file intr.c */
-extern	intmask	disable(void);
-extern	void	enable(void);
-extern	void	restore(intmask);
 
 /* in file chprio.c */
 extern	pri16	chprio(pid32, pri16);
 
 /* in file clkhandler.c */
-extern	inline void clkhandler(void);
+extern	void clkhandler(void);
 
 /* in file clkinit.c */
 extern	void	clkinit(void);
 
 /* in file create.c */
 extern	pid32	create(int (*procaddr)(), int, int, char *, int, ...);
-
-/* in file ctxsw.S */
-extern	void	ctxsw(void *, void *);
 
 /* in file freebuf.c */
 extern	syscall	freebuf(char *);
@@ -49,9 +41,6 @@ extern	syscall	getprio(pid32);
 /* in file getstk.c */
 extern	char	*getstk(uint32);
 
-/* in file halt.S */
-extern	void	halt(void);
-
 /* in file insert.c */
 extern	status	insert(pid32, qid16, int32);
 
@@ -60,9 +49,6 @@ extern	status	insertd(pid32, qid16, int32);
 
 /* in file kill.c */
 extern	syscall	kill(pid32);
-
-/* in file mark.c */
-extern	void	_mkinit(void);
 
 /* in file memcpy.c */
 extern	void	*memcpy(void *, const void *, int32);
@@ -81,9 +67,6 @@ extern	qid16	newqueue(void);
 
 /* in file panic.c */
 extern	void	panic(char *);
-
-/* in file platinit.c */
-extern	void	platinit(void);
 
 /* in file ptcount.c */
 extern	int32	ptcount(int32);
@@ -174,8 +157,4 @@ extern	void	xdone(void);
 
 /* in file yield.c */
 extern	syscall	yield(void);
-
-typedef unsigned int size_t;
-#define hibyte(x) (unsigned char)(((int)(x)>>8)&0xff)
-#define lobyte(x) (unsigned char)(((int)(x))&0xff)
 

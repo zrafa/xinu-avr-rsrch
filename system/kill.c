@@ -12,7 +12,6 @@ syscall	kill(
 {
 	intmask	mask;			/* Saved interrupt mask		*/
 	struct	procent *prptr;		/* Ptr to process's table entry	*/
-	int32	i;			/* Index into descriptors	*/
 
 	mask = disable();
 	if (isbadpid(pid) || (pid == NULLPROC)

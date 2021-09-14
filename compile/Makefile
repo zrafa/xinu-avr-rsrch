@@ -40,7 +40,7 @@ REBUILDFLAGS	=	-s $(TOPDIR)/system   	\
 			-s $(TOPDIR)/platforms/atmega328p			\
 			-s $(TOPDIR)/main  
 
-INCLUDE		=	-I$(TOPDIR)/include
+INCLUDE		=	-I$(TOPDIR)/include -I$(TOPDIR)/platforms/atmega328p
 # RAFA DEFS		= 	-DBSDURG -DVERSION=\""`cat $(VERSIONFILE)`"\"
 DEFS		= 	-DVERSION=\""Xinu AVR 0.1 RAFA\0"\"
 
