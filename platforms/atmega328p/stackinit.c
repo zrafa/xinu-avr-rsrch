@@ -3,7 +3,7 @@
 #define	MAGIC		0xaa	/* unusual value for top of stk	*/
 
 
-void stackinit(struct procent *prptr, unsigned char *saddr, int (*procaddr)(), int	nargs, int *a)
+void stackinit(struct procent *prptr, char *saddr, int (*procaddr)(), int	nargs, int *a)
 {
 	int i;
 

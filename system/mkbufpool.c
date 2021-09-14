@@ -28,7 +28,7 @@ bpid32	mkbufpool(
 	bufsiz = ( (bufsiz + 3) & (~3) );
 
 	buf = (char *)getmem( numbufs * (bufsiz+sizeof(bpid32)) );
-	if ((int32)buf == SYSERR) {
+	if ((addr_t)buf == SYSERR) {
 		restore(mask);
 		return (bpid32)SYSERR;
 	}

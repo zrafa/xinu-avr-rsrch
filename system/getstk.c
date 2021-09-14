@@ -7,7 +7,7 @@
  *------------------------------------------------------------------------
  */
 char  	*getstk(
-	  uint32	nbytes		/* Size of memory requested	*/
+	  size_t	nbytes		/* Size of memory requested	*/
 	)
 {
 	intmask	mask;			/* Saved interrupt mask		*/
@@ -20,7 +20,7 @@ char  	*getstk(
 		return (char *)SYSERR;
 	}
 
-	nbytes = (uint32) roundmb(nbytes);	/* Use mblock multiples	*/
+	nbytes = (size_t) roundmb(nbytes);	/* Use mblock multiples	*/
 
 	prev = &memlist;
 	curr = memlist.mnext;
@@ -46,9 +46,9 @@ char  	*getstk(
 		fitsprev->mnext = fits->mnext;
 	} else {				/* Remove top section	*/
 		fits->mlength -= nbytes;
-		fits = (struct memblk *)((uint32)fits + fits->mlength);
+		fits = (struct memblk *)((addr_t)fits + fits->mlength);
 	}
 	memlist.mlength -= nbytes;
 	restore(mask);
-	return (char *)((uint32) fits + nbytes - sizeof(uint32));
+	return (char *)((addr_t) fits + nbytes - sizeof(addr_t));
 }

@@ -64,7 +64,7 @@ struct procent {		/* Entry in the process table		*/
 	int *paddr;			/* initial code address			*/
 
 	char	*prstkptr;	/* Saved stack pointer			*/
-	unsigned char	*prstkbase;	/* Base of run time stack		*/
+	char	*prstkbase;	/* Base of run time stack		*/
 	uint32	prstklen;	/* Stack length in bytes		*/
 	char	prname[PNMLEN];	/* Process name				*/
 	sid32	prsem;		/* Semaphore on which process waits	*/

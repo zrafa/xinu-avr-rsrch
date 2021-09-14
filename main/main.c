@@ -4,6 +4,8 @@
 
 #include <xinu.h>
 #include <avr/io.h>
+#include <stdarg.h>
+#include <stdio.h>
 
 #define USART_BAUDRATE 9600
 #define UBRR_VALUE (((F_CPU / (USART_BAUDRATE * 16UL))) - 1)
@@ -48,47 +50,109 @@ uint8 usartreceivebyte()
     return usart0->UDR;
 }
 
-process example1(int nargs, char *args[])
+/*------------------------------------------------------------------------
+ * kputc - use polled I/O to write a character to the console serial line
+ *------------------------------------------------------------------------
+ */
+syscall kputc(
+	  byte	c			/* character to write		*/
+	)
 {
-    char *buf = args[0];
-    int i = 0;
-    char ch;
+	intmask mask;
 
-    for (;;)
-    {
-        ch = buf[i++];
-        if (ch == '\0') {
-            usartsendbyte('\r');
-            usartsendbyte('\n');
-            break;       
-        }
-        usartsendbyte(ch);
+	mask = disable();
 
-        sleep(2);
-    }
+	if (c == '\n')
+		usartsendbyte('\r');
+	usartsendbyte(c);
 
+	restore(mask);
 	return OK;
 }
+
+/*------------------------------------------------------------------------
+ * kprintf  -  use polled I/O to print formatted output on the console
+ *------------------------------------------------------------------------
+ */
+syscall kprintf(char *fmt, ...)
+{
+	va_list ap;
+	char output[81];
+	char *c;
+
+	memset(output, 0, 81);
+	va_start(ap, fmt);
+	vsnprintf(output, 80, fmt, ap);
+	va_end(ap);
+
+	c = output;
+	while(*c) {
+		kputc(*c);
+		c++;
+	};
+
+        return OK;
+}
+
+#define BLKSIZE MINSTK
+
+extern struct	memblk	memlist;	/* List of free memory blocks		*/
 
 process	main(void)
 {
     usartinit();
 
-	/* We create() a new process. Arguments:
-	 *         process code: example0()
-	 *         stack size: 128 bytes
-	 *         priority: 50
-	 * 	   name: "ex0"
-	 *         arguments: 2
-	 * 	   first argument: 3 (int)
-	 * 	   second argument: "hello world"
-	 */
+    char *addr1;
+    char *addr2;
+    char *saddr1;
+    char *saddr2;
 
-	resume(create(example1, 128, 50, "ex_0", 1, "hello world"));
+    kprintf("--------------------------------------------------------------\n");
+    kprintf("--------------------------------------------------------------\n");
+    kprintf("Free mem: %d\n\n", memlist.mlength);
 
-	/* Wait for example0 to exit */
+    kprintf("Get mem - size: %d\n", BLKSIZE);
+    addr1 = getmem(BLKSIZE);
+    kprintf("addr1: %X\n", (addr_t)addr1);
+    kprintf("Free mem: %d\n\n", memlist.mlength);
 
-	receive();
+    kprintf("Get mem - size: %d\n", BLKSIZE);
+    addr2 = getmem(BLKSIZE);
+    kprintf("addr2: %X\n", (addr_t)addr2);
+    kprintf("Free mem: %d\n\n", memlist.mlength);
+
+    kprintf("Free mem - addr1: %X size: %d\n", (addr_t)addr1, BLKSIZE);
+    if (freemem(addr1, BLKSIZE) == SYSERR) {
+        kprintf("Error\n");
+        return 1;
+    }
+    kprintf("Free mem: %d\n\n", memlist.mlength);
+
+    kprintf("Get stack - size: %d\n", BLKSIZE);
+    saddr1 = getstk(BLKSIZE);
+    kprintf("saddr1: %X\n", (addr_t)saddr1);
+    kprintf("Free mem: %d\n\n", memlist.mlength);
+
+    kprintf("Get stack - size: %d\n", BLKSIZE);
+    saddr2 = getstk(BLKSIZE);
+    kprintf("saddr2: %X\n", (addr_t)saddr2);
+    kprintf("Free mem: %d\n\n", memlist.mlength);
+
+    kprintf("Free stack - saddr1: %X size: %d\n", (addr_t)saddr1, BLKSIZE);
+    freestk(saddr1, BLKSIZE);
+    kprintf("Free mem: %d\n\n", memlist.mlength);
+
+
+    kprintf("Free stack - saddr2: %X size: %d\n", (addr_t)saddr2, BLKSIZE);
+    freestk(saddr2, BLKSIZE);
+    kprintf("Free mem: %d\n\n", memlist.mlength);
+
+    kprintf("Free mem - addr2: %X size: %d\n", (addr_t)addr2, BLKSIZE);
+    if (freemem(addr2, BLKSIZE) == SYSERR) {
+        kprintf("Error\n");
+        return 1;
+    }
+    kprintf("Free mem: %d\n", memlist.mlength);
 
 	return OK;
 }

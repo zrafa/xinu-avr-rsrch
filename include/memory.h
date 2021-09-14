@@ -1,29 +1,28 @@
 /* memory.h - roundmb, truncmb, freestk */
 
-/* avr specific values. Original saved under orig/ folder */
-
-#define	PAGE_SIZE	1024 // TODO: unused?
-
 /*----------------------------------------------------------------------
  * roundmb, truncmb - Round or truncate address to memory block size
  *----------------------------------------------------------------------
  */
-#define	roundmb(x)	(char *)( (7 + (uint32)(x)) & (~7) )
-#define	truncmb(x)	(char *)( ((uint32)(x)) & (~7) )
+#define	roundmb(x)	(char *)( ((sizeof(struct memblk)-1) 			\
+                  + (addr_t)(x)) & (~(sizeof(struct memblk)-1)) )
+#define	truncmb(x)	(char *)( ((addr_t)(x)) & (~(sizeof(struct memblk)-1)) )
 
 /*----------------------------------------------------------------------
  *  freestk  --  Free stack memory allocated by getstk
  *----------------------------------------------------------------------
  */
-#define	freestk(p,len)	freemem((char *)((uint32)(p)		\
-				- ((uint32)roundmb(len))	\
-				+ (uint32)sizeof(uint32)),	\
-				(uint32)roundmb(len) )
 
-struct	memblk	{			/* See roundmb & truncmb	*/
-	struct	memblk	*mnext;		/* Ptr to next free memory blk	*/
-	uint32	mlength;		/* Size of blk (includes memblk)*/
+struct	memblk	{					/* See roundmb & truncmb			*/
+	struct	memblk	*mnext;			/* Ptr to next free memory blk		*/
+	size_t	mlength;				/* Size of blk (includes memblk)	*/
 	};
-extern	struct	memblk	memlist;	/* Head of free memory list	*/
-extern	void	*minheap;		/* Start of heap		*/
-extern	void	*maxheap;		/* Highest valid heap address	*/
+
+#define	freestk(p,len)	freemem((char *)((addr_t)(p)		\
+				- ((addr_t)roundmb(len))					\
+				+ (addr_t)sizeof(addr_t)),					\
+				(addr_t)roundmb(len) )
+
+extern	struct	memblk	memlist;	/* Head of free memory list			*/
+extern	void	*minheap;			/* Start of heap					*/
+extern	void	*maxheap;			/* Highest valid heap address		*/

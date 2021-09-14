@@ -7,7 +7,7 @@
  *------------------------------------------------------------------------
  */
 char  	*getmem(
-	  uint32	nbytes		/* Size of memory requested	*/
+	  size_t	nbytes		/* Size of memory requested	*/
 	)
 {
 	intmask	mask;			/* Saved interrupt mask		*/
@@ -19,7 +19,7 @@ char  	*getmem(
 		return (char *)SYSERR;
 	}
 
-	nbytes = (uint32) roundmb(nbytes);	/* Use memblk multiples	*/
+	nbytes = (size_t) roundmb(nbytes);	/* Use memblk multiples	*/
 
 	prev = &memlist;
 	curr = memlist.mnext;
@@ -32,7 +32,7 @@ char  	*getmem(
 			return (char *)(curr);
 
 		} else if (curr->mlength > nbytes) { /* Split big block	*/
-			leftover = (struct memblk *)((uint32) curr +
+			leftover = (struct memblk *)((addr_t) curr +
 					nbytes);
 			prev->mnext = leftover;
 			leftover->mnext = curr->mnext;

@@ -1,5 +1,17 @@
 /* prototypes.h */
 
+/* in file platinit.c */
+extern	void	platinit(void);
+
+/* in file intr.c */
+extern	intmask	disable(void);
+extern	void	enable(void);
+extern	void	restore(intmask);
+extern	void	halt(void);
+
+/* in file ctxsw.S */
+extern	void	ctxsw(void *, void *);
+
 /* in file bufinit.c */
 extern	status	bufinit(void);
 
@@ -12,6 +24,9 @@ extern	void clkhandler(void);
 /* in file clkinit.c */
 extern	void	clkinit(void);
 
+/* in file stackinit.c */
+void stackinit(struct procent *, char *, int (*)(), int, int *);
+
 /* in file create.c */
 extern	pid32	create(int (*procaddr)(), int, int, char *, int, ...);
 
@@ -19,7 +34,7 @@ extern	pid32	create(int (*procaddr)(), int, int, char *, int, ...);
 extern	syscall	freebuf(char *);
 
 /* in file freemem.c */
-extern	syscall	freemem(char *, uint32);
+extern	syscall	freemem(char *, size_t);
 
 /* in file getbuf.c */
 extern	char	*getbuf(bpid32);
@@ -30,7 +45,7 @@ extern	pid32	getlast(qid16);
 extern	pid32	getitem(pid32);
 
 /* in file getmem.c */
-extern	char	*getmem(uint32);
+extern	char	*getmem(size_t);
 
 /* in file getpid.c */
 extern	pid32	getpid(void);
@@ -39,7 +54,7 @@ extern	pid32	getpid(void);
 extern	syscall	getprio(pid32);
 
 /* in file getstk.c */
-extern	char	*getstk(uint32);
+extern	char	*getstk(size_t);
 
 /* in file insert.c */
 extern	status	insert(pid32, qid16, int32);
