@@ -115,9 +115,9 @@ examine-header:
 	$(OBJDUMP) -x $(XINU) | less
 
 flash:
-	avrdude -p atmega328p -c arduino -P `ls -1 /dev/ttyUSB* /dev/ttyACM* 2>/dev/null | head -1` -b 57600 -D -U flash:w:$(XINUHEX):i 
+	# avrdude -p atmega328p -c arduino -P `ls -1 /dev/ttyUSB* /dev/ttyACM* 2>/dev/null | head -1` -b 57600 -D -U flash:w:$(XINUHEX):i 
 	#|| avrdude -p atmega328p -c arduino -P /dev/ttyACM0 -b 115200 -D -U flash:w:$(XINUHEX):i || avrdude -p atmega328p -c arduino -P /dev/ttyUSB0 -b 115200 -D -U flash:w:$(XINUHEX):i || avrdude -p atmega328p -c arduino -P /dev/ttyUSB0 -b 57600 -D -U flash:w:$(XINUHEX):i || avrdude -p atmega328p -c arduino -P /dev/ttyUSB0 -b 57600 -D -U flash:w:$(XINUHEX):i
-	# avrdude -p atmega328p -c arduino -P /dev/ttyUSB0 -b 115200 -D -U flash:w:$(FIRMWARE):i
+	avrdude -p atmega328p -c arduino -P /dev/ttyUSB0 -b 115200 -D -U flash:w:$(XINUHEX):i
 
 
 qemu:
