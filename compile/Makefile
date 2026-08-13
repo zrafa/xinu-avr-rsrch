@@ -92,28 +92,15 @@ LD_LIST = binaries/start.o $(filter-out binaries/start.o,$(OBJ_FILES))
 # Rules for files that need special handling
 #------------------------------------------------------------
 
-# Define variables for the Configuration file and generated files
-
-CONFFILE	= $(TOPDIR)/config/Configuration
-CONFH		= $(TOPDIR)/include/conf.h
-CONFC		= $(TOPDIR)/system/conf.c
-
-# Define variables for the config program and its sources
-
-CONFPGM		= $(TOPDIR)/config/config
-CONFL		= $(TOPDIR)/config/config.l
-CONFY		= $(TOPDIR)/config/config.y
-
 # Set up the required build directory structure
 
 BLDDIRS	= binaries
-export
 
 #--------------------------------------------------------------------------------
 # Specific additional rules and exceptions
 #--------------------------------------------------------------------------------
 
-xinu:	Makefile rebuild $(BLDDIRS) $(DEFSFILE) $(DEPSFILE) $(CONFH) $(CONFC) $(LD_LIST)
+xinu:	Makefile rebuild $(BLDDIRS) $(DEFSFILE) $(DEPSFILE) $(LD_LIST)
 	@echo;echo 'Loading object files to produce xinu'
 	@$(LD) $(LDFLAGS) $(LD_LIST) -o $(XINU) 
 	@echo "Creating Binary..."
@@ -143,29 +130,9 @@ $(BLDDIRS):
 
 objects: $(LD_LIST)
 
-$(CONFH): $(CONFFILE) $(CONFPGM)
-	@echo making $(CONFH)
-	@make configure
-
-$(CONFC): $(CONFFILE) $(CONFPGM)
-	@echo making $(CONFC)
-	@make configure
-
-$(CONFPGM): $(CONFL) $(CONFY)
-	@echo making the config program
-	@make -C $(TOPDIR)/config clean all install
-
-configure:
-	@echo forcing a rebuild of conf.h and conf.c
-	@make newversion
-	@(cd $(TOPDIR)/config; make install)
-
 clean:
 	@echo removing .o files
 	@rm -f ${LD_LIST}
-	@echo   removing configuration files ...
-	@rm -f $(CONFH) $(CONFC)
-	@(cd $(TOPDIR)/config; make clean)
 	@echo removing xinu ...
 	@rm -f $(XINU)
 	@rm -f $(XINUBIN)
@@ -186,7 +153,7 @@ $(DEPSFILE):
 	@echo "" > $(DEPSFILE)
 	@make depend
 
-rebuild: $(CONFC)
+rebuild:
 	@echo Rebuilding the $(DEFSFILE) file
 	@$(BUILDMAKE) $(REBUILDFLAGS) > $(DEFSFILE)
 
