@@ -123,11 +123,6 @@ static	void	sysinit()
 		semptr->squeue = newqueue();
 	}
 
-
-	/* Initialize buffer pools */
-
-	bufinit();
-
 	/* Create a ready list for processes */
 
 	readylist = newqueue();

@@ -12,9 +12,6 @@ extern	void	halt(void);
 /* in file ctxsw.S */
 extern	void	ctxsw(void *, void *);
 
-/* in file bufinit.c */
-extern	status	bufinit(void);
-
 /* in file chprio.c */
 extern	pri16	chprio(pid32, pri16);
 
@@ -30,14 +27,8 @@ void stackinit(struct procent *, char *, int (*)(), int, int *);
 /* in file create.c */
 extern	pid32	create(int (*procaddr)(), int, int, char *, int, ...);
 
-/* in file freebuf.c */
-extern	syscall	freebuf(char *);
-
 /* in file freemem.c */
 extern	syscall	freemem(char *, size_t);
-
-/* in file getbuf.c */
-extern	char	*getbuf(bpid32);
 
 /* in file getitem.c */
 extern	pid32	getfirst(qid16);
@@ -74,14 +65,8 @@ extern	int32	*memcmp(void *, const void *, int32);
 /* in file memset.c */
 extern  void    *memset(void *, const int, int32);
 
-/* in file mkbufpool.c */
-extern	bpid32	mkbufpool(int32, int32);
-
 /* in file newqueue.c */
 extern	qid16	newqueue(void);
-
-/* in file panic.c */
-extern	void	panic(char *);
 
 /* in file ptcount.c */
 extern	int32	ptcount(int32);

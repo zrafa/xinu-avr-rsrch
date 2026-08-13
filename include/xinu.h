@@ -9,7 +9,6 @@
 #include <resched.h>
 #include <semaphore.h>
 #include <memory.h>
-#include <bufpool.h>
 #include <ports.h>
 #include <prototypes.h>
 
