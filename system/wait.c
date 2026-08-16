@@ -7,12 +7,12 @@
  *------------------------------------------------------------------------
  */
 syscall	wait(
-	  sid32		sem		/* Semaphore on which to wait  */
+	  sid16		sem					/* Semaphore on which to wait  */
 	)
 {
-	intmask mask;			/* Saved interrupt mask		*/
-	struct	procent *prptr;		/* Ptr to process's table entry	*/
-	struct	sentry *semptr;		/* Ptr to sempahore table entry	*/
+	intmask mask;					/* Saved interrupt mask			*/
+	struct	procent *prptr;			/* Ptr to process's table entry	*/
+	struct	sentry *semptr;			/* Ptr to sempahore table entry	*/
 
 	mask = disable();
 	if (isbadsem(sem)) {
@@ -26,12 +26,12 @@ syscall	wait(
 		return SYSERR;
 	}
 
-	if (--(semptr->scount) < 0) {		/* If caller must block	*/
+	if (--(semptr->scount) < 0) {	/* If caller must block	*/
 		prptr = &proctab[currpid];
 		prptr->prstate = PR_WAIT;	/* Set state to waiting	*/
-		prptr->prsem = sem;		/* Record semaphore ID	*/
-		enqueue(currpid,semptr->squeue);/* Enqueue on semaphore	*/
-		resched();			/*   and reschedule	*/
+		prptr->prsem = sem;			/* Record semaphore ID	*/
+		enqueue(currpid,semptr->squeue); /* Enqueue on semaphore	*/
+		resched();					/*   and reschedule		*/
 	}
 
 	restore(mask);

@@ -2,18 +2,18 @@
 
 #include <xinu.h>
 
-local	sid32	newsem(void);
+local	sid16	newsem(void);
 
 /*------------------------------------------------------------------------
  *  semcreate  -  Create a new semaphore and return the ID to the caller
  *------------------------------------------------------------------------
  */
-sid32	semcreate(
-	  int32		count		/* Initial semaphore count	*/
+sid16	semcreate(
+	  int16		count				/* Initial semaphore count	*/
 	)
 {
-	intmask	mask;			/* Saved interrupt mask		*/
-	sid32	sem;			/* Semaphore ID to return	*/
+	intmask	mask;					/* Saved interrupt mask		*/
+	sid16	sem;					/* Semaphore ID to return	*/
 
 	mask = disable();
 
@@ -21,7 +21,7 @@ sid32	semcreate(
 		restore(mask);
 		return SYSERR;
 	}
-	semtab[sem].scount = count;	/* Initialize table entry	*/
+	semtab[sem].scount = count;		/* Initialize table entry	*/
 
 	restore(mask);
 	return sem;
@@ -31,11 +31,11 @@ sid32	semcreate(
  *  newsem  -  Allocate an unused semaphore and return its index
  *------------------------------------------------------------------------
  */
-local	sid32	newsem(void)
+local	sid16	newsem(void)
 {
-	static	sid32	nextsem = 0;	/* Next semaphore index to try	*/
-	sid32	sem;			/* Semaphore ID to return	*/
-	int32	i;			/* Iterate through # entries	*/
+	static	sid16	nextsem = 0;	/* Next semaphore index to try	*/
+	sid16	sem;					/* Semaphore ID to return		*/
+	int16	i;						/* Iterate through # entries	*/
 
 	for (i=0 ; i<NSEM ; i++) {
 		sem = nextsem++;

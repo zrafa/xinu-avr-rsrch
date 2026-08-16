@@ -52,8 +52,8 @@ void	resched(void)		/* Assumes interrupts are disabled	*/
  *  resched_cntl  -  Control whether rescheduling is deferred or allowed
  *------------------------------------------------------------------------
  */
-status	resched_cntl(		/* Assumes interrupts are disabled	*/
-	  int32	defer		/* Either DEFER_START or DEFER_STOP	*/
+status	resched_cntl(	/* Assumes interrupts are disabled	*/
+	  int16	defer		/* Either DEFER_START or DEFER_STOP	*/
 	)
 {
 	switch (defer) {

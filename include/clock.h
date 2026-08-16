@@ -1,8 +1,10 @@
 /* clock.h */
 
-extern	uint32	clktime;	/* current time in secs since boot	*/
-extern  unsigned long count1000;      /* 1 ms since last clock tick             */
+extern	volatile uint16	clktime;	/* current time in secs since boot		*/
+extern  volatile uint16  count1000; /* ms since last clock tick             */
 
-extern	qid16	sleepq;		/* queue for sleeping processes		*/
-extern	uint32	preempt;	/* preemption counter			*/
+extern	volatile qid16	sleepq;		/* queue for sleeping processes			*/
+extern	int16	slnonempty;			/* nonzero if sleepq is nonempty		*/
+extern	int16	*sltop;				/* ptr to key in first item on sleepq	*/
+extern	volatile uint16	preempt;	/* preemption counter					*/
 

@@ -7,11 +7,11 @@
  *------------------------------------------------------------------------
  */
 syscall	signaln(
-	  sid32		sem,		/* ID of semaphore to signal	*/
-	  int32		count		/* Number of times to signal	*/
+	  sid16		sem,			/* ID of semaphore to signal	*/
+	  int16		count			/* Number of times to signal	*/
 	)
 {
-	intmask	mask;			/* Saved interrupt mask		*/
+	intmask	mask;				/* Saved interrupt mask			*/
 	struct	sentry	*semptr;	/* Ptr to sempahore table entry */
 
 	mask = disable();

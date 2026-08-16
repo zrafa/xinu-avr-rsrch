@@ -7,7 +7,7 @@
  *------------------------------------------------------------------------
  */
 char  	*getstk(
-	  size_t	nbytes		/* Size of memory requested	*/
+	  uint16	nbytes		/* Size of memory requested	*/
 	)
 {
 	intmask	mask;			/* Saved interrupt mask		*/
@@ -20,7 +20,7 @@ char  	*getstk(
 		return (char *)SYSERR;
 	}
 
-	nbytes = (size_t) roundmb(nbytes);	/* Use mblock multiples	*/
+	nbytes = (uint16) roundmb(nbytes);	/* Use mblock multiples	*/
 
 	prev = &memlist;
 	curr = memlist.mnext;
@@ -28,8 +28,6 @@ char  	*getstk(
 	fitsprev = NULL;  /* Just to avoid a compiler warning */
 
 	while (curr != NULL) {			/* Scan entire list	*/
-		// RAFA kprintf("c:%d ",curr->mlength);
-		// RAFA kprintf("n:%d ",nbytes);
 		if (curr->mlength >= nbytes) {	/* Record block address	*/
 			fits = curr;		/*   when request fits	*/
 			fitsprev = prev;
@@ -46,9 +44,9 @@ char  	*getstk(
 		fitsprev->mnext = fits->mnext;
 	} else {				/* Remove top section	*/
 		fits->mlength -= nbytes;
-		fits = (struct memblk *)((addr_t)fits + fits->mlength);
+		fits = (struct memblk *)((uint16)fits + fits->mlength);
 	}
 	memlist.mlength -= nbytes;
 	restore(mask);
-	return (char *)((addr_t) fits + nbytes - sizeof(addr_t));
+	return (char *)((uint16) fits + nbytes - sizeof(uint16));
 }

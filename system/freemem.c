@@ -8,21 +8,21 @@
  */
 syscall	freemem(
 	  char		*blkaddr,	/* Pointer to memory block	*/
-	  size_t	nbytes		/* Size of block in bytes	*/
+	  uint16	nbytes		/* Size of block in bytes	*/
 	)
 {
 	intmask	mask;			/* Saved interrupt mask		*/
 	struct	memblk	*next, *prev, *block;
-	addr_t	top;
+	uint16	top;
 
 	mask = disable();
-	if ((nbytes == 0) || ((addr_t) blkaddr < (addr_t) minheap)
-			  || ((addr_t) blkaddr > (addr_t) maxheap)) {
+	if ((nbytes == 0) || ((uint16) blkaddr < (uint16) minheap)
+			  || ((uint16) blkaddr > (uint16) maxheap)) {
 		restore(mask);
 		return SYSERR;
 	}
 
-	nbytes = (size_t) roundmb(nbytes);	/* Use memblk multiples	*/
+	nbytes = (uint16) roundmb(nbytes);	/* Use memblk multiples	*/
 	block = (struct memblk *)blkaddr;
 
 	prev = &memlist;			/* Walk along free list	*/
@@ -33,15 +33,15 @@ syscall	freemem(
 	}
 
 	if (prev == &memlist) {		/* Compute top of previous block*/
-		top = (addr_t) NULL;
+		top = (uint16) NULL;
 	} else {
-		top = (addr_t) prev + prev->mlength;
+		top = (uint16) prev + prev->mlength;
 	}
 
 	/* Ensure new block does not overlap previous or next blocks	*/
 
-	if (((prev != &memlist) && (addr_t) block < top)
-	    || ((next != NULL)	&& (addr_t) block+nbytes>(addr_t)next)) {
+	if (((prev != &memlist) && (uint16) block < top)
+	    || ((next != NULL)	&& (uint16) block+nbytes>(uint16)next)) {
 		restore(mask);
 		return SYSERR;
 	}
@@ -50,7 +50,7 @@ syscall	freemem(
 
 	/* Either coalesce with previous block or add to free list */
 
-	if (top == (addr_t) block) { 	/* Coalesce with previous block	*/
+	if (top == (uint16) block) { 	/* Coalesce with previous block	*/
 		prev->mlength += nbytes;
 		block = prev;
 	} else {			/* Link into list as new node	*/
@@ -61,7 +61,7 @@ syscall	freemem(
 
 	/* Coalesce with next block if adjacent */
 
-	if (((addr_t) block + block->mlength) == (addr_t) next) {
+	if (((uint16) block + block->mlength) == (uint16) next) {
 		block->mlength += next->mlength;
 		block->mnext = next->mnext;
 	}

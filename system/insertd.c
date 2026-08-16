@@ -7,13 +7,13 @@
  *------------------------------------------------------------------------
  */
 status	insertd(			/* Assumes interrupts disabled	*/
-	  pid32		pid,		/* ID of process to insert	*/
+	  pid16		pid,		/* ID of process to insert	*/
 	  qid16		q,		/* ID of queue to use		*/
-	  int32		key		/* Delay from "now" (in ms.)	*/
+	  uint16 	key		/* Delay from "now" (in ms.)	*/
 	)
 {
-	int32	next;			/* Runs through the delta list	*/
-	int32	prev;			/* Follows next through the list*/
+	int16	next;			/* Runs through the delta list	*/
+	int16	prev;			/* Follows next through the list*/
 
 	if (isbadqid(q) || isbadpid(pid)) {
 		return SYSERR;

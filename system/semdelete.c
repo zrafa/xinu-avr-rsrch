@@ -7,11 +7,11 @@
  *------------------------------------------------------------------------
  */
 syscall	semdelete(
-	  sid32		sem		/* ID of semaphore to delete	*/
+	  sid16		sem					/* ID of semaphore to delete	*/
 	)
 {
-	intmask mask;			/* Saved interrupt mask		*/
-	struct	sentry *semptr;		/* Ptr to semaphore table entry	*/
+	intmask mask;					/* Saved interrupt mask			*/
+	struct	sentry *semptr;			/* Ptr to semaphore table entry	*/
 
 	mask = disable();
 	if (isbadsem(sem)) {

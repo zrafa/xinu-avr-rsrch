@@ -3,6 +3,8 @@
 /* Handle system initialization and become the null process */
 
 #include <xinu.h>
+#include <string.h>
+
 
 /* Function prototypes */
 
@@ -18,9 +20,12 @@ struct	memblk	memlist;	/* List of free memory blocks		*/
 
 /* Active system status */
 
-int32	prcount;		/* Total number of live processes	*/
-pid32	currpid;		/* ID of currently executing process	*/
+int16	prcount;		/* Total number of live processes	*/
+pid16	currpid;		/* ID of currently executing process	*/
 
+/* Control sequence to reset the console colors and cusor positiion	*/
+
+#define	CONSOLE_RESET	" \033[0m\033[2J\033[;H"
 
 /*------------------------------------------------------------------------
  * nulluser - initialize the system and become the null process
@@ -36,10 +41,11 @@ pid32	currpid;		/* ID of currently executing process	*/
  *------------------------------------------------------------------------
  */
 
+uint16	free_mem;		/* Total amount of free memory	*/
+
 void	nulluser()
 {	
 	struct	memblk	*memptr;	/* Ptr to memory block		*/
-	uint32	free_mem;		/* Total amount of free memory	*/
 
 	/* Initialize the system */
 
@@ -65,7 +71,8 @@ void	nulluser()
 	
 	/* main */
 
-	resume(create((void *)main, 440, INITPRIO, "main", 0, NULL));
+	// resume(create((void *)main, 440, INITPRIO, "main", 0, NULL));
+	resume(create((void *)main, 256, INITPRIO, "main", 0, NULL));
 
 	/* nullprocess continues here */
 	for(;;);
@@ -80,7 +87,7 @@ void	nulluser()
  */
 static	void	sysinit()
 {
-	int32	i;
+	int16	i;
 	struct	procent	*prptr;		/* Ptr to process table entry	*/
 	struct	sentry	*semptr;	/* Ptr to semaphore table entry	*/
 
@@ -126,7 +133,7 @@ static	void	sysinit()
 	/* Create a ready list for processes */
 
 	readylist = newqueue();
-	
+
 	/* Initialize the real time clock */
 
 	clkinit();
@@ -134,7 +141,7 @@ static	void	sysinit()
 	return;
 }
 
-int32	stop(char *s)
+int16	stop(char *s)
 {
 	while(1)
 		/* Empty */;

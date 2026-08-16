@@ -2,14 +2,14 @@
 
 #include <xinu.h>
 
-#define	MAXSECONDS	2147483		/* Max seconds per 32-bit msec	*/
+#define	MAXSECONDS	32		/* Max seconds per 16-bit msec	*/
 
 /*------------------------------------------------------------------------
  *  sleep  -  Delay the calling process n seconds
  *------------------------------------------------------------------------
  */
 syscall	sleep(
-	  int32	delay		/* Time to delay in seconds	*/
+	  int16	delay			/* Time to delay in seconds	*/
 	)
 {
 	if ( (delay < 0) || (delay > MAXSECONDS) ) {
@@ -20,11 +20,13 @@ syscall	sleep(
 }
 
 /*------------------------------------------------------------------------
- *  sleepms  -  Delay the calling process n milliseconds
+ *  sleepms  -  Delay the calling process n x 1000 milliseconds
+ *                 for example: 1 second = sleepms(1000)
+ *  avr atmega328p specific
  *------------------------------------------------------------------------
  */
 syscall	sleepms(
-	  int32	delay			/* Time to delay in msec.	*/
+	  int16	delay			/* Time to delay in msec.	*/
 	)
 {
 	intmask	mask;			/* Saved interrupt mask		*/

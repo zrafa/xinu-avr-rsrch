@@ -8,11 +8,11 @@
  *------------------------------------------------------------------------
  */
 syscall semcount(
-	  sid32		semid		/* ID of semaphore to use	*/
+	  sid16		semid		/* ID of semaphore to use	*/
 	)
 {
 	intmask	mask;			/* Saved interrupt mask		*/
-	int32	count;			/* Current sempahore count	*/
+	int16	count;			/* Current sempahore count	*/
 
 	mask = disable();
 	

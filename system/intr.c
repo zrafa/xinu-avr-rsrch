@@ -1,4 +1,4 @@
-/* intr.c - enable, disable, restore, halt, pause, (ARM) */
+/* intr.S - enable, disable, restore, halt, pause, (AVR) */
 
 /* avr specific */
 
@@ -18,7 +18,7 @@
 intmask disable(void)
 {
 	int x = SREG;
-	asm("cli");	/*and disable interrupts*/
+	__asm__ __volatile__ ("cli");	/*and disable interrupts*/
 	return x;
 }
 

@@ -7,11 +7,11 @@
  *------------------------------------------------------------------------
  */
 syscall	kill(
-	  pid32		pid		/* ID of process to kill	*/
+	  pid16		pid			/* ID of process to kill		*/
 	)
 {
-	intmask	mask;			/* Saved interrupt mask		*/
-	struct	procent *prptr;		/* Ptr to process's table entry	*/
+	intmask	mask;			/* Saved interrupt mask			*/
+	struct	procent *prptr;	/* Ptr to process's table entry	*/
 
 	mask = disable();
 	if (isbadpid(pid) || (pid == NULLPROC)
@@ -20,11 +20,12 @@ syscall	kill(
 		return SYSERR;
 	}
 
-	if (--prcount <= 1) {		/* Last user process completes	*/
+	if (--prcount <= 1) {	/* Last user process completes	*/
 		xdone();
 	}
 
 	send(prptr->prparent, pid);
+
 	freestk(prptr->prstkbase, prptr->prstklen);
 
 	switch (prptr->prstate) {

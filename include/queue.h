@@ -8,12 +8,12 @@
 #define NQENT	(NPROC + 4 + NSEM + NSEM)
 #endif
 
-#define	EMPTY	(-1)		/* Null value for qnext or qprev index	*/
-#define	MAXKEY	0x7FFFFFFF	/* Max key that can be stored in queue	*/
-#define	MINKEY	0x80000000	/* Min key that can be stored in queue	*/
+#define	EMPTY	(-1)	/* Null value for qnext or qprev index	*/
+#define	MAXKEY	0x7FFF	/* Max key that can be stored in queue	*/
+#define	MINKEY	0x8000	/* Min key that can be stored in queue	*/
 
 struct	qentry	{		/* One per process plus two per list	*/
-	int32	qkey;		/* Key on which the queue is ordered	*/
+	int16	qkey;		/* Key on which the queue is ordered	*/
 	qid16	qnext;		/* Index of next process or tail	*/
 	qid16	qprev;		/* Index of previous process or head	*/
 };
@@ -33,4 +33,4 @@ extern	struct qentry	queuetab[];
 
 /* Inline to check queue id assumes interrupts are disabled */
 
-#define	isbadqid(x)	(((int32)(x) < NPROC) || (int32)(x) >= NQENT-1)
+#define	isbadqid(x)	(((int16)(x) < NPROC) || (int16)(x) >= NQENT-1)

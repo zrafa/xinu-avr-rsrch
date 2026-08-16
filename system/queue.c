@@ -8,8 +8,8 @@ struct qentry	queuetab[NQENT];	/* Table of process queues	*/
  *  enqueue  -  Insert a process at the tail of a queue
  *------------------------------------------------------------------------
  */
-pid32	enqueue(
-	  pid32		pid,		/* ID of process to insert	*/
+pid16	enqueue(
+	  pid16		pid,		/* ID of process to insert	*/
 	  qid16		q		/* ID of queue to use		*/
 	)
 {
@@ -33,11 +33,11 @@ pid32	enqueue(
  *  dequeue  -  Remove and return the first process on a list
  *------------------------------------------------------------------------
  */
-pid32	dequeue(
+pid16	dequeue(
 	  qid16		q		/* ID of queue to use		*/
 	)
 {
-	pid32	pid;			/* ID of process removed	*/
+	pid16	pid;			/* ID of process removed	*/
 
 	if (isbadqid(q)) {
 		return SYSERR;

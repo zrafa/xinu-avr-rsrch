@@ -7,13 +7,13 @@
  *------------------------------------------------------------------------
  */
 pri16	chprio(
-	  pid32		pid,		/* ID of process to change	*/
-	  pri16		newprio		/* New priority			*/
+	  pid16		pid,		/* ID of process to change		*/
+	  pri16		newprio		/* New priority					*/
 	)
 {
-	intmask	mask;			/* Saved interrupt mask		*/
-	struct	procent *prptr;		/* Ptr to process's table entry	*/
-	pri16	oldprio;		/* Priority to return		*/
+	intmask	mask;			/* Saved interrupt mask			*/
+	struct	procent *prptr;	/* Ptr to process's table entry	*/
+	pri16	oldprio;		/* Priority to return			*/
 
 	mask = disable();
 	if (isbadpid(pid)) {

@@ -1,12 +1,15 @@
-/* getpid.c - getpid */
+/* platinit.c - platinit */
 
 #include <xinu.h>
 
+
 /*------------------------------------------------------------------------
- *  getpid  -  Return the ID of the currently executing process
+ * platinit - platform specific initialization
  *------------------------------------------------------------------------
  */
-pid16	getpid(void)
+
+void platinit(void)
 {
-	return (currpid);
+//    set_clock_32MHz();           
 }
+

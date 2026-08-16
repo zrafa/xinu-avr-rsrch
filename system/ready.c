@@ -9,7 +9,7 @@ qid16	readylist;			/* Index of ready list		*/
  *------------------------------------------------------------------------
  */
 status	ready(
-	  pid32		pid		/* ID of process to make ready	*/
+	  pid16		pid		/* ID of process to make ready	*/
 	)
 {
 	register struct procent *prptr;

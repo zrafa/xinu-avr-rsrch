@@ -7,12 +7,12 @@
  *------------------------------------------------------------------------
  */
 pri16	resume(
-	  pid32		pid		/* ID of process to unsuspend	*/
+	  pid16		pid			/* ID of process to unsuspend	*/
 	)
 {
-	intmask	mask;			/* Saved interrupt mask		*/
-	struct	procent *prptr;		/* Ptr to process's table entry	*/
-	pri16	prio;			/* Priority to return		*/
+	intmask	mask;			/* Saved interrupt mask			*/
+	struct	procent *prptr;	/* Ptr to process's table entry	*/
+	pri16	prio;			/* Priority to return			*/
 
 	mask = disable();
 	if (isbadpid(pid)) {
@@ -24,7 +24,7 @@ pri16	resume(
 		restore(mask);
 		return (pri16)SYSERR;
 	}
-	prio = prptr->prprio;		/* Record priority to return	*/
+	prio = prptr->prprio;	/* Record priority to return	*/
 	ready(pid);
 	restore(mask);
 	return prio;

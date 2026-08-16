@@ -7,11 +7,11 @@
  *------------------------------------------------------------------------
  */
 syscall	send(
-	  pid32		pid,		/* ID of recipient process	*/
-	  umsg32	msg		/* Contents of message		*/
+	  pid16		pid,			/* ID of recipient process		*/
+	  umsg16	msg				/* Contents of message			*/
 	)
 {
-	intmask	mask;			/* Saved interrupt mask		*/
+	intmask	mask;				/* Saved interrupt mask			*/
 	struct	procent *prptr;		/* Ptr to process's table entry	*/
 
 	mask = disable();
@@ -25,7 +25,7 @@ syscall	send(
 		restore(mask);
 		return SYSERR;
 	}
-	prptr->prmsg = msg;		/* Deliver message		*/
+	prptr->prmsg = msg;			/* Deliver message				*/
 	prptr->prhasmsg = TRUE;		/* Indicate message is waiting	*/
 
 	/* If recipient waiting or in timed-wait make it ready */
@@ -36,6 +36,6 @@ syscall	send(
 		unsleep(pid);
 		ready(pid);
 	}
-	restore(mask);		/* Restore interrupts */
+	restore(mask);				/* Restore interrupts 			*/
 	return OK;
 }

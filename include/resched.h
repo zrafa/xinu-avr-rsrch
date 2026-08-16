@@ -8,9 +8,9 @@
 /* Structure that collects items related to deferred rescheduling	*/
 
 struct	defer	{
-	int32	ndefers;	/* Number of outstanding defers 	*/
+	int16	ndefers;	/* Number of outstanding defers 	*/
 	bool8	attempt;	/* Was resched called during the	*/
-				/*   deferral period?			*/
+						/*   deferral period?				*/
 };
 
 extern	struct	defer	Defer;

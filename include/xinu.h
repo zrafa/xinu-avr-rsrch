@@ -1,6 +1,8 @@
 /* xinu.h - include all system header files */
 
-#include <platform.h>
+#ifndef _XINU_H
+#define _XINU_H
+
 #include <kernel.h>
 #include <conf.h>
 #include <clock.h>
@@ -9,6 +11,7 @@
 #include <resched.h>
 #include <semaphore.h>
 #include <memory.h>
-#include <ports.h>
 #include <prototypes.h>
+#include <sync.h>
 
+#endif
