@@ -61,9 +61,18 @@ void	nulluser()
 
 	/* Initialize the Null process entry */	
 
-	int pid = create(NULL, INITSTK, 10, "nullp", 0, NULL);
-	struct procent * prptr = &proctab[pid];
+    currpid = 0;
+	struct procent * prptr = &proctab[currpid];
 	prptr->prstate = PR_CURR;
+	prptr->prprio = 0;
+	prptr->prstkbase = (uint8 *)0x8FF;
+	prptr->prstklen = NULLSTK;
+	char prname[] = "null";
+	for (int i=0 ; i<PNMLEN-1 && (prptr->prname[i]=prname[i])!=NULLCH; i++)
+		;
+	prptr->prsem = -1;
+	prptr->prparent = 0;
+	prptr->prhasmsg = FALSE;
 	
 	/* Enable interrupts */
 
@@ -73,6 +82,9 @@ void	nulluser()
 
 	// resume(create((void *)main, 440, INITPRIO, "main", 0, NULL));
 	resume(create((void *)main, 256, INITPRIO, "main", 0, NULL));
+
+    void serial_put_str(char * str);
+    serial_put_str((char *)__func__);   
 
 	/* nullprocess continues here */
 	for(;;);
@@ -103,8 +115,7 @@ static	void	sysinit()
 	/* Initialize system variables */
 
 	/* Count the Null process as the first process in the system */
-	prcount = 0;
-	// prcount = 1;
+	prcount = 1;
 
 	/* Scheduling is not currently blocked */
 

@@ -1,54 +1,85 @@
-/* main.c: programa ejemplo con tres tareas concurrentes.
- *
- * tarea_led: prioridad 20, pila 64 bytes.
- * tarea_comunicaciones: prioridad 20, pila 256 bytes
- * tarea_main: prioridad 20, pila 256 bytes
- *
- * dos semaforos para sincronizar una alternancia de uso del UART
- */
-
 #include <xinu.h>
 #include "serial.h"
 
-/* definicion de tareas (cuyo codigo fuente es externo) */
-extern int led_placa(void);
-extern int comunicacion(void);
+/*------------------------------------------------------------------------
+ *  _prtl10  -  Converts int to base 10 string.
+ *------------------------------------------------------------------------
+ */
+static void	_prtl10(int num, char *str)
+{
+    int i;
+    char temp[11];
 
-/* nombre para dos semaforos a utilizar */
-#define SEM_COM 0
-#define SEM_PROD 1
+    temp[0] = '\0';
+    temp[1] = ((num<0) ? -(num%10) : (num%10)) + '0';
+    num /= (num<0) ? -10 : 10;
+    for (i = 2; i <= 10; i++) {
+        temp[i] = num % 10 + '0';
+        num /= 10;
+    }
+    for (i = 10; temp[i] == '0'; i--);
+    if (i == 0)
+        i++;
+    while (i >= 0)
+        *str++ = temp[i--];
+}
+
+/*------------------------------------------------------------------------
+ *  _prtl16  -  Converts int to lowercase hex string.
+ *------------------------------------------------------------------------
+ */
+static void	_prtl16(
+		  int		num,
+		  char		*str
+		)
+{
+    int i;
+    char temp[9];
+
+    temp[0] = '\0';
+    for (i = 1; i <= 4; i++)
+    {
+        temp[i] = "0123456789abcdef"[num & 0x0F];
+        num = num >> 4;
+    }
+    for (i = 4; temp[i] == '0'; i--);
+    if (i == 0)
+        i++;
+    while (i >= 0)
+        *str++ = temp[i--];
+}
 
 
-/* main es una tarea independiente y se la utiliza como tal */
 int main(void)
 {
+    pid16 pid;
+    char buf[8];
+	struct procent *prptr;
 
 	serial_init();
 
-	/* inicializamos los semaforos */
-	sync_set(SEM_COM, 1);
-	sync_set(SEM_PROD, 0);
+    serial_put_str((char *)__func__);
+    serial_put_str("\r\n");
 
-	/* creamos y ponemos a ejecutar dos tareas */
-	resume(create(led_placa, 300, 10, "led", 0));
-	resume(create(comunicacion, 256, 20, "comm", 0));
+    pid = getpid();
+    serial_put_str("pid ");
+    _prtl10(pid, buf);
+    serial_put_str(buf);
+    serial_put_str("\r\n");
 
+	prptr = &proctab[pid];
+    pid = prptr->prparent;
+    serial_put_str("parent pid ");
+    _prtl10(pid, buf);
+    serial_put_str(buf);
+    serial_put_str("\r\n");
+
+	prptr = &proctab[pid];
+    serial_put_str("parent name ");
+    serial_put_str(prptr->prname);
+    serial_put_str("\r\n");
 
 	while(1) {
-		sleep(10);
-
-                /* como esta tarea comparte el serial con otra tarea, 
-                 * se lo sincroniza estilo productor-consumidor,
-                 * para que cada uno envie un mensaje de manera
-                 * alternada. Un mutex podría haber sido utilizado
-                 * si no es necesaria la alternancia.
-                 */
-
-		sync_wait(SEM_COM);
-			serial_put_str("hola mundo\n");
-		sync_signal(SEM_PROD);
-		
-		
 	}
 
 	return 0;

@@ -107,4 +107,7 @@ void serial_put_str(char * str)
         serial_put_char(*str);
         str++;
     }
+
+    serial_put_char('\r');
+    serial_put_char('\n');
 }
