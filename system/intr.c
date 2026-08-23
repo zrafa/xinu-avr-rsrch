@@ -26,7 +26,7 @@ intmask disable(void)
  * restore  -  Restore interrupts to value given by mask argument
  *------------------------------------------------------------------------
  */
-void restore(uint8 x)
+void restore(uint8_t x)
 {
 	SREG = x;	/*restore the status register, possibly reenabling interrupts*/
 }

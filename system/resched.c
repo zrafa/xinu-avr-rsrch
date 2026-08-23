@@ -38,10 +38,11 @@ void	resched(void)		/* Assumes interrupts are disabled	*/
 	/* Force context switch to highest priority ready process */
 
 	currpid = dequeue(readylist);
+
 	ptnew = &proctab[currpid];
 	ptnew->prstate = PR_CURR;
 	preempt = QUANTUM;		/* Reset time slice for process	*/
-	ctxsw(&ptold->pregs[0],&ptnew->pregs[0]);
+	ctxsw(&ptold->prstkptr,&ptnew->prstkptr);
 
 	/* Old process returns here when resumed */
 
@@ -52,20 +53,20 @@ void	resched(void)		/* Assumes interrupts are disabled	*/
  *  resched_cntl  -  Control whether rescheduling is deferred or allowed
  *------------------------------------------------------------------------
  */
-status	resched_cntl(	/* Assumes interrupts are disabled	*/
-	  int16	defer		/* Either DEFER_START or DEFER_STOP	*/
+status	resched_cntl(		/* Assumes interrupts are disabled	*/
+	  int	defer			/* Either DEFER_START or DEFER_STOP	*/
 	)
 {
 	switch (defer) {
 
-	    case DEFER_START:	/* Handle a deferral request */
+	    case DEFER_START:	/* Handle a deferral request		*/
 
 		if (Defer.ndefers++ == 0) {
 			Defer.attempt = FALSE;
 		}
 		return OK;
 
-	    case DEFER_STOP:	/* Handle end of deferral */
+	    case DEFER_STOP:	/* Handle end of deferral			*/
 		if (Defer.ndefers <= 0) {
 			return SYSERR;
 		}

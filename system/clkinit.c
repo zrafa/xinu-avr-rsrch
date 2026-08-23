@@ -20,10 +20,10 @@ volatile timer2_t *timer2 = (timer2_t *)(0xb0);
 volatile unsigned char *timer2_timsk2 = (unsigned char *)(0x70);
 
 
-volatile uint16	clktime;		/* Seconds since boot			*/
-volatile uint16 count1000;		/* ms since last clock tick     */
+volatile uint16_t	clktime;		/* Seconds since boot			*/
+volatile uint16_t count1000;		/* ms since last clock tick     */
 volatile qid16	sleepq;			/* Queue of sleeping processes	*/
-volatile uint16 preempt;		/* Preemption counter			*/
+volatile uint16_t preempt;		/* Preemption counter			*/
 
 /*------------------------------------------------------------------------
  * clkinit  -  Initialize the clock and sleep queue at startup

@@ -8,7 +8,7 @@
  */
 syscall	semreset(
 	  sid16		sem,		/* ID of semaphore to reset		*/
-	  int16		count		/* New count (must be >= 0)		*/
+	  int16_t	count		/* New count (must be >= 0)		*/
 	)
 {
 	intmask	mask;			/* Saved interrupt mask			*/

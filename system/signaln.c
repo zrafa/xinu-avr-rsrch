@@ -8,7 +8,7 @@
  */
 syscall	signaln(
 	  sid16		sem,			/* ID of semaphore to signal	*/
-	  int16		count			/* Number of times to signal	*/
+	  int16_t	count			/* Number of times to signal	*/
 	)
 {
 	intmask	mask;				/* Saved interrupt mask			*/

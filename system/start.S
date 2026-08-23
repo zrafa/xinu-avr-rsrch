@@ -45,14 +45,13 @@ __vectors:
     vector __vector_29
 #endif
 
-    .set    __stack, RAMEND
     .text
 
 RESET:
     clr     r1
     out     _SFR_IO_ADDR(SREG), r1
-    ldi     r28,lo8(__stack)
-    ldi     r29,hi8(__stack)
+    ldi     r28,lo8(RAMEND)
+    ldi     r29,hi8(RAMEND)
     out     _SFR_IO_ADDR(SPH), r29
     out     _SFR_IO_ADDR(SPL), r28
 

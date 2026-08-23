@@ -9,7 +9,7 @@ local	sid16	newsem(void);
  *------------------------------------------------------------------------
  */
 sid16	semcreate(
-	  int16		count				/* Initial semaphore count	*/
+	  int16_t		count				/* Initial semaphore count	*/
 	)
 {
 	intmask	mask;					/* Saved interrupt mask		*/
@@ -35,7 +35,7 @@ local	sid16	newsem(void)
 {
 	static	sid16	nextsem = 0;	/* Next semaphore index to try	*/
 	sid16	sem;					/* Semaphore ID to return		*/
-	int16	i;						/* Iterate through # entries	*/
+	int16_t	i;						/* Iterate through # entries	*/
 
 	for (i=0 ; i<NSEM ; i++) {
 		sem = nextsem++;

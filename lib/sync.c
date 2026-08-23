@@ -3,18 +3,18 @@
 
 char semaforo[4];
 
-void sync_set(uint8 n, char v)
+void sync_set(uint8_t n, char v)
 {
-	uint8 x;
+	uint8_t x;
 
 	x = disable();
 	semaforo[n] = v;
 	restore(x);
 }
 
-void sync_wait(uint8 n)
+void sync_wait(uint8_t n)
 {
-	uint8 x;
+	uint8_t x;
 
 	inicio:
 	x = disable();
@@ -27,9 +27,9 @@ void sync_wait(uint8 n)
 	restore(x);
 }
 
-void sync_signal(uint8 n)
+void sync_signal(uint8_t n)
 {
-	uint8 x;
+	uint8_t x;
 
 	x = disable();
 	semaforo[n]++;

@@ -1,7 +1,7 @@
 /* semaphore.h - isbadsem */
 
 #ifndef	NSEM
-#define	NSEM		120	/* Number of semaphores, if not defined	*/
+#define	NSEM		4	/* Number of semaphores, if not defined	*/
 #endif
 
 /* Semaphore state definitions */
@@ -11,12 +11,12 @@
 
 /* Semaphore table entry */
 struct	sentry	{
-	byte	sstate;		/* Whether entry is S_FREE or S_USED	*/
-	int16	scount;		/* Count for the semaphore		*/
+	int8_t	sstate;		/* Whether entry is S_FREE or S_USED	*/
+	int16_t	scount;		/* Count for the semaphore		*/
 	qid16	squeue;		/* Queue of processes that are waiting	*/
 						/*     on the semaphore			*/
 };
 
 extern	struct	sentry semtab[];
 
-#define	isbadsem(s)	((int16)(s) < 0 || (s) >= NSEM)
+#define	isbadsem(s)	((int16_t)(s) < 0 || (s) >= NSEM)

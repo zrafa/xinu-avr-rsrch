@@ -2,6 +2,8 @@
 
 #include <xinu.h>
 
+extern uint8_t __bss_end;
+
 void	*minheap;	/* Start address of heap	*/
 void	*maxheap;	/* End address of heap		*/
 
@@ -10,43 +12,15 @@ void	*maxheap;	/* End address of heap		*/
  *------------------------------------------------------------------------
  */
 
-/* avr specific */
-extern int __bss_end;
-
-/* avr specific */
-#define GET_FAR_ADDRESS(var)                          \
-({                                                    \
-    uint16 tmp;                                     \
-                                                      \
-    __asm__ __volatile__(                             \
-                                                      \
-            "ldi    %A0, lo8(%1)"           "\n\t"    \
-            "ldi    %B0, hi8(%1)"           "\n\t"    \
-            "ldi    %C0, hh8(%1)"           "\n\t"    \
-            "clr    %D0"                    "\n\t"    \
-        :                                             \
-            "=d" (tmp)                                \
-        :                                             \
-            "p"  (&(var))                             \
-    );                                                \
-    tmp;                                              \
-})
-
-
-
 void	meminit(void)
 {
 	struct	memblk *memptr;	/* Memory block pointer	*/
 
-	/* avr specific */
-        uint16 ptr_bss_end;
-        ptr_bss_end = GET_FAR_ADDRESS(__bss_end);  //get the pointer
-
 	/* Initialize the minheap and maxheap variables */
 
-	minheap = (void *)ptr_bss_end+1;
-	maxheap = (void *)(0x008008FF - NULLSTK);	/* AVR atmega328p stack pointer when booting */
-					/* QUITAMOS 16 bytes para workaround */
+    minheap = &__bss_end+1;
+	maxheap = (void *)(RAMEND - NULLSTK);	/* AVR atmega328p stack pointer when booting */
+											/* QUITAMOS 16 bytes para workaround */
 
 	/* Initialize the memory list as one big block */
 
@@ -55,5 +29,5 @@ void	meminit(void)
 
 	memptr->mnext = (struct memblk *)NULL;
 	memlist.mlength = memptr->mlength =
-		(uint16)maxheap - (uint16)minheap;
+		(uint16_t)maxheap - (uint16_t)minheap;
 }

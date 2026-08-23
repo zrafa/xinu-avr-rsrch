@@ -6,8 +6,8 @@
  *  getstk  -  Allocate stack memory, returning highest word address
  *------------------------------------------------------------------------
  */
-char  	*getstk(
-	  uint16	nbytes		/* Size of memory requested	*/
+uint8_t  	*getstk(
+	  size_t	nbytes		/* Size of memory requested	*/
 	)
 {
 	intmask	mask;			/* Saved interrupt mask		*/
@@ -17,10 +17,10 @@ char  	*getstk(
 	mask = disable();
 	if (nbytes == 0) {
 		restore(mask);
-		return (char *)SYSERR;
+		return (uint8_t *)SYSERR;
 	}
 
-	nbytes = (uint16) roundmb(nbytes);	/* Use mblock multiples	*/
+	nbytes = (uint16_t) roundmb(nbytes);	/* Use mblock multiples	*/
 
 	prev = &memlist;
 	curr = memlist.mnext;
@@ -38,15 +38,15 @@ char  	*getstk(
 
 	if (fits == NULL) {			/* No block was found	*/
 		restore(mask);
-		return (char *)SYSERR;
+		return (uint8_t *)SYSERR;
 	}
 	if (nbytes == fits->mlength) {		/* Block is exact match	*/
 		fitsprev->mnext = fits->mnext;
 	} else {				/* Remove top section	*/
 		fits->mlength -= nbytes;
-		fits = (struct memblk *)((uint16)fits + fits->mlength);
+		fits = (struct memblk *)((uint16_t)fits + fits->mlength);
 	}
 	memlist.mlength -= nbytes;
 	restore(mask);
-	return (char *)((uint16) fits + nbytes - sizeof(uint16));
+	return (uint8_t *)((uint16_t) fits + nbytes - sizeof(uint16_t));
 }

@@ -3,6 +3,7 @@
 #ifndef _XINU_H
 #define _XINU_H
 
+#include <avr/io.h>
 #include <kernel.h>
 #include <conf.h>
 #include <clock.h>

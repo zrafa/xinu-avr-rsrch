@@ -7,7 +7,7 @@
  *------------------------------------------------------------------------
  */
 umsg16	recvtime(
-	  int16		maxwait			/* Ticks to wait before timeout */
+	  int16_t		maxwait			/* Ticks to wait before timeout */
         )
 {
 	intmask	mask;				/* Saved interrupt mask			*/

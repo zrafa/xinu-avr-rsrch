@@ -20,7 +20,7 @@ struct	memblk	memlist;	/* List of free memory blocks		*/
 
 /* Active system status */
 
-int16	prcount;		/* Total number of live processes	*/
+size_t	prcount;		/* Total number of live processes	*/
 pid16	currpid;		/* ID of currently executing process	*/
 
 /* Control sequence to reset the console colors and cusor positiion	*/
@@ -41,7 +41,7 @@ pid16	currpid;		/* ID of currently executing process	*/
  *------------------------------------------------------------------------
  */
 
-uint16	free_mem;		/* Total amount of free memory	*/
+uint16_t	free_mem;		/* Total amount of free memory	*/
 
 void	nulluser()
 {	
@@ -61,18 +61,8 @@ void	nulluser()
 
 	/* Initialize the Null process entry */	
 
-    currpid = 0;
-	struct procent * prptr = &proctab[currpid];
+	struct procent * prptr = &proctab[0];
 	prptr->prstate = PR_CURR;
-	prptr->prprio = 0;
-	prptr->prstkbase = (uint8 *)0x8FF;
-	prptr->prstklen = NULLSTK;
-	char prname[] = "null";
-	for (int i=0 ; i<PNMLEN-1 && (prptr->prname[i]=prname[i])!=NULLCH; i++)
-		;
-	prptr->prsem = -1;
-	prptr->prparent = 0;
-	prptr->prhasmsg = FALSE;
 	
 	/* Enable interrupts */
 
@@ -82,9 +72,6 @@ void	nulluser()
 
 	// resume(create((void *)main, 440, INITPRIO, "main", 0, NULL));
 	resume(create((void *)main, 256, INITPRIO, "main", 0, NULL));
-
-    void serial_put_str(char * str);
-    serial_put_str((char *)__func__);   
 
 	/* nullprocess continues here */
 	for(;;);
@@ -99,7 +86,7 @@ void	nulluser()
  */
 static	void	sysinit()
 {
-	int16	i;
+	int16_t	i;
 	struct	procent	*prptr;		/* Ptr to process table entry	*/
 	struct	sentry	*semptr;	/* Ptr to semaphore table entry	*/
 
@@ -115,7 +102,8 @@ static	void	sysinit()
 	/* Initialize system variables */
 
 	/* Count the Null process as the first process in the system */
-	prcount = 1;
+	prcount = 0;
+	// prcount = 1;
 
 	/* Scheduling is not currently blocked */
 
@@ -152,7 +140,7 @@ static	void	sysinit()
 	return;
 }
 
-int16	stop(char *s)
+int16_t	stop(char *s)
 {
 	while(1)
 		/* Empty */;

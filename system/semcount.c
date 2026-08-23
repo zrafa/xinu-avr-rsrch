@@ -12,7 +12,7 @@ syscall semcount(
 	)
 {
 	intmask	mask;			/* Saved interrupt mask		*/
-	int16	count;			/* Current sempahore count	*/
+	int16_t	count;			/* Current sempahore count	*/
 
 	mask = disable();
 	

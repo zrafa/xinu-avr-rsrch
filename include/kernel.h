@@ -4,31 +4,23 @@
 
 typedef unsigned int size_t;
 
-typedef	unsigned char		byte;
-typedef	unsigned char		uint8;
-typedef	long				int32;
-typedef	int					int16;
-typedef	unsigned long		uint32;
-typedef	unsigned int		uint16;
-typedef	unsigned long long	uint64;
+/* Xinu-specific types */
+
+typedef	uint16_t pri16;		/* process priority						*/
+typedef	uint16_t	umsg16;		/* message passed among processes		*/
+typedef	uint8_t	bool8;		/* Boolean type							*/
 
 /* Xinu-specific types */
 
-typedef	int16	pri16;		/* process priority						*/
-typedef	uint16	umsg16;		/* message passed among processes		*/
-typedef	byte	bool8;		/* Boolean type							*/
-
-/* Xinu-specific types */
-
-typedef int16   sid16;      /* semaphore ID                     	*/
-typedef int16   qid16;      /* queue ID                         	*/
-typedef int16   pid16;      /* process ID                       	*/
-typedef uint8   intmask;    /* saved interrupt mask             	*/
+typedef int16_t   sid16;      /* semaphore ID                     	*/
+typedef int16_t   qid16;      /* queue ID                         	*/
+typedef int16_t   pid16;      /* process ID                       	*/
+typedef uint8_t   intmask;    /* saved interrupt mask             	*/
 
 
 /* Function declaration return types */
 
-typedef int16	process;	/* top-level function of a process		*/
+typedef int16_t	process;	/* top-level function of a process		*/
 typedef	void	interrupt;	/* interrupt procedure					*/
 
 typedef	char	status;		/* returned status value (OK/SYSERR)	*/

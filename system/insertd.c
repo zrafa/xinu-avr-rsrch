@@ -9,11 +9,11 @@
 status	insertd(			/* Assumes interrupts disabled	*/
 	  pid16		pid,		/* ID of process to insert	*/
 	  qid16		q,		/* ID of queue to use		*/
-	  uint16 	key		/* Delay from "now" (in ms.)	*/
+	  uint16_t 	key		/* Delay from "now" (in ms.)	*/
 	)
 {
-	int16	next;			/* Runs through the delta list	*/
-	int16	prev;			/* Follows next through the list*/
+	int16_t	next;			/* Runs through the delta list	*/
+	int16_t	prev;			/* Follows next through the list*/
 
 	if (isbadqid(q) || isbadpid(pid)) {
 		return SYSERR;

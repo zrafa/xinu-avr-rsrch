@@ -9,7 +9,7 @@
  *------------------------------------------------------------------------
  */
 syscall	sleep(
-	  int16	delay			/* Time to delay in seconds	*/
+	  int16_t	delay			/* Time to delay in seconds	*/
 	)
 {
 	if ( (delay < 0) || (delay > MAXSECONDS) ) {
@@ -26,7 +26,7 @@ syscall	sleep(
  *------------------------------------------------------------------------
  */
 syscall	sleepms(
-	  int16	delay			/* Time to delay in msec.	*/
+	  int16_t	delay			/* Time to delay in msec.	*/
 	)
 {
 	intmask	mask;			/* Saved interrupt mask		*/

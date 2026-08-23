@@ -8,13 +8,13 @@ extern	interrupt clkhandler(void);
 extern	void	clkinit(void);
 
 /* in file create.c */
-extern	pid16	create(int (*procaddr)(), int, int, char *, int, ...);
+extern	pid16	create(void *, size_t, pri16, char *, size_t, ...);
 
 /* in file ctxsw.S */
 extern	void	ctxsw(void *, void *);
 
 /* in file freemem.c */
-extern	syscall	freemem(char *, uint16);
+extern	syscall	freemem(char *, uint16_t);
 
 /* in file getitem.c */
 extern	pid16	getfirst(qid16);
@@ -22,7 +22,7 @@ extern	pid16	getlast(qid16);
 extern	pid16	getitem(pid16);
 
 /* in file getmem.c */
-extern	char	*getmem(uint16);
+extern	char	*getmem(uint16_t);
 
 /* in file getpid.c */
 extern	pid16	getpid(void);
@@ -31,13 +31,13 @@ extern	pid16	getpid(void);
 extern	syscall	getprio(pid16);
 
 /* in file getstk.c */
-extern	char	*getstk(uint16);
+extern	uint8_t	*getstk(size_t);
 
 /* in file insert.c */
 extern	status	insert(pid16, qid16, char);
 
 /* in file insertd.c */
-extern	status	insertd(pid16, qid16, uint16);
+extern	status	insertd(pid16, qid16, uint16_t);
 
 /* in file intr.c */
 extern	intmask	disable(void);
@@ -68,11 +68,11 @@ extern	umsg16	receive(void);
 extern	umsg16	recvclr(void);
 
 /* in file recvtime.c */
-extern	umsg16	recvtime(int16);
+extern	umsg16	recvtime(int16_t);
 
 /* in file resched.c */
 extern	void	resched(void);
-extern	status	resched_cntl(int16);
+extern	status	resched_cntl(int16_t);
 
 /* in file resume.c */
 extern	pri16	resume(pid16);
@@ -81,13 +81,13 @@ extern	pri16	resume(pid16);
 extern	syscall	semcount(sid16);
 
 /* in file semcreate.c */
-extern	sid16	semcreate(int16);
+extern	sid16	semcreate(int16_t);
 
 /* in file semdelete.c */
 extern	syscall	semdelete(sid16);
 
 /* in file semreset.c */
-extern	syscall	semreset(sid16, int16);
+extern	syscall	semreset(sid16, int16_t);
 
 /* in file send.c */
 extern	syscall	send(pid16, umsg16);
@@ -96,11 +96,14 @@ extern	syscall	send(pid16, umsg16);
 extern	syscall	signal(sid16);
 
 /* in file signaln.c */
-extern	syscall	signaln(sid16, int16);
+extern	syscall	signaln(sid16, int16_t);
 
 /* in file sleep.c */
-extern	syscall	sleepms(int16);
-extern	syscall	sleep(int16);
+extern	syscall	sleepms(int16_t);
+extern	syscall	sleep(int16_t);
+
+/* in file stkinit.c */
+extern	uint8_t * stkinit(uint8_t *, void *, size_t, int *);
 
 /* in file suspend.c */
 extern	syscall	suspend(pid16);

@@ -5,9 +5,9 @@
 
 extern char semaforo[];
 
-void sync_wait(uint8 n);
-void sync_signal(uint8 n);
-void sync_set(uint8 n, char v);
+void sync_wait(uint8_t n);
+void sync_signal(uint8_t n);
+void sync_set(uint8_t n, char v);
 
 #endif
 

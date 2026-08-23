@@ -11,7 +11,7 @@ syscall	getprio(
 	)
 {
 	intmask	mask;			/* Saved interrupt mask		*/
-	uint16	prio;			/* Priority to return		*/
+	uint16_t	prio;			/* Priority to return		*/
 
 	mask = disable();
 	if (isbadpid(pid)) {

@@ -26,17 +26,20 @@ INCLUDES = -I$(TOPDIR)/include \
 # Extrae solo el nombre del archivo y lo redirige a OBJDIR
 OBJECTS = $(addprefix $(OBJDIR)/, $(notdir $(CSOURCES:.c=.o) $(ASSOURCES:.S=.o)))
 
-TARGET = xinu-avr-rtos
+TARGET = xinu-avr-rsrch
 
-CFLAGS = -g -std=c99 -Wall -Os -mmcu=${MCU} -DF_CPU=${F_CPU} -fno-builtin -nostdlib -nostartfiles
+CFLAGS = -g -std=c99 -Wall -Os -mmcu=${MCU} -DF_CPU=${F_CPU} -fno-builtin -nostdlib -nostartfiles -ffreestanding
 CFLAGS += $(PLATFORM)
 
 ASFLAGS = -g -mmcu=${MCU}
 
+LIBGCC := $(shell avr-gcc -mmcu=atmega328p -print-libgcc-file-name)
+LIBC   := $(shell avr-gcc -mmcu=atmega328p -print-file-name=libc.a)
+
 LDFLAGS = -mavr5 -T ld.script -Map=$(TARGET).map
 
 $(TARGET) : $(OBJECTS)
-	$(LD) -o $(TARGET).elf $^ $(LDFLAGS)
+	$(LD) -o $(TARGET).elf $^ $(LDFLAGS) $(LIBC) $(LIBGCC)
 	avr-objcopy -j .text -j .data -O ihex $(TARGET).elf $(TARGET).hex
 	avr-objcopy -O binary $(TARGET).elf $(TARGET).bin
 	avr-size -C --mcu=${MCU} $(TARGET).elf
@@ -68,7 +71,7 @@ $(OBJDIR):
 .PHONY: clean flash
 
 clean:
-	rm -rf $(OBJDIR) $(TARGET).elf $(TARGET).bin $(TARGET).hex $(TARGET).nm $(TARGET).map $(TARGET).asm core
+	rm -rf $(OBJDIR) $(TARGET).elf $(TARGET).bin $(TARGET).hex $(TARGET).nm $(TARGET).map core
 
 flash: $(TARGET)
 	avr-objcopy -O ihex -R .eeprom $(TARGET).elf $(TARGET).hex

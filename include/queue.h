@@ -13,7 +13,7 @@
 #define	MINKEY	0x8000	/* Min key that can be stored in queue	*/
 
 struct	qentry	{		/* One per process plus two per list	*/
-	int16	qkey;		/* Key on which the queue is ordered	*/
+	int16_t	qkey;		/* Key on which the queue is ordered	*/
 	qid16	qnext;		/* Index of next process or tail	*/
 	qid16	qprev;		/* Index of previous process or head	*/
 };
@@ -33,4 +33,4 @@ extern	struct qentry	queuetab[];
 
 /* Inline to check queue id assumes interrupts are disabled */
 
-#define	isbadqid(x)	(((int16)(x) < NPROC) || (int16)(x) >= NQENT-1)
+#define	isbadqid(x)	(((int16_t)(x) < NPROC) || (int16_t)(x) >= NQENT-1)
