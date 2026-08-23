@@ -4,6 +4,7 @@
 #include "adc.h"
 
 void motors(void);
+void encoders(void);
 
 void main(void)
 {
@@ -16,6 +17,7 @@ void main(void)
     serial_put_str("Hello World!\r\n");
     
     resume(create(motors, 128, 20, "motors", 0));
+    resume(create(encoders, 128, 20, "encoders", 0));
 
     while (1) {
         serial_put_int(count++, 4);

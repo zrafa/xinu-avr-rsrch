@@ -1,7 +1,7 @@
 #pragma once
 
 /*-----------------------------------------------------------------------
- * Configuración de pines para encoders y motores (XY-160D)
+ * Configuración de pines para motores (XY-160D)
  *-----------------------------------------------------------------------
  */
 #define ENC1_A 2 /* PD2/INT0 */
